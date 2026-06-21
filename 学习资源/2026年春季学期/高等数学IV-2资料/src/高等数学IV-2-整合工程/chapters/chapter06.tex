@@ -1,0 +1,1190 @@
+\chaptertitle{6}{第六章 多元函数微分学及其应用}
+
+\begin{summarybox}{本章学习目标}
+第六章围绕“多元函数如何变化”展开。前半部分要分清极限、连续、偏导数和可微之间的关系；后半部分把这些工具用于隐函数求导、方向导数、切平面和极值问题。复习时不要只背公式，关键是知道每个公式在什么条件下可以用。
+\end{summarybox}
+
+\begin{methodbox}{本章常见题型}
+\begin{itemize}
+  \item 判断二元函数极限是否存在：找不同路径、用极坐标或夹逼。
+  \item 判断连续、偏导存在、可微：按“连续性、偏导、可微定义”逐项检查。
+  \item 复合函数和隐函数求导：先看函数依赖关系，再用链式法则。
+  \item 几何应用和极值：先找梯度、法向量、驻点或约束方程。
+\end{itemize}
+\end{methodbox}
+
+\subsection{第一节 多元函数的基本概念}
+\begin{dy}{多元数量值函数}{}
+设 $D$ 是 $\mathbb{R}^n$ 的一个非空子集，$f: D \to \mathbb{R}$，称 $f$ 为定义在 $D$ 上的一个 $n$ 元数量值函数，记作 $y = f(x_1, x_2, \dots, x_n),\ (x_1, x_2, \dots, x_n) \in D$。
+
+特别地，若 $D \subseteq \mathbb{R}^2$，则为二元函数 $z = f(x,y)$，其图形为空间曲面；若 $D \subseteq \mathbb{R}^3$，则为三元函数 $w = f(x,y,z)$。
+\end{dy}
+\begin{dy}{二元函数的极限}{}
+设函数 $f: D \subseteq \mathbb{R}^2 \to \mathbb{R}$，$(x_0,y_0)$ 是 $D$ 的聚点，$A$ 为常数。
+\[
+\lim_{\substack{(x,y) \to (x_0,y_0)}} f(x,y) = A : \forall \varepsilon > 0,\ \exists \delta > 0,\ \text{对任意的 } (x,y) \in \mathring{U}((x_0,y_0),\delta) \cap D,\ \text{恒有 } |f(x,y) - A| < \varepsilon.
+\]
+类似地，可定义 $n$ 元函数 $y = f(x_1, x_2, \dots, x_n)$ 的极限。
+\end{dy}
+\begin{dy}{二元函数的连续性}{}
+$f(x,y)$ 在点 $(x_0,y_0)$ 处连续，是指
+\[
+\lim_{\substack{(x,y) \to (x_0,y_0)}} f(x,y) = f(x_0,y_0).
+\]
+$f(x,y)$ 在区域 $D$ 上连续：$f(x,y)$ 在 $D$ 上每一点处都连续，记作 $f \in C(D)$。
+\end{dy}
+\begin{xz}{有界闭区域上连续函数的性质}{}
+有界闭区域上的多元连续函数有以下常用性质：
+
+    有界性：有界闭区域 $D$ 上的连续函数必有界
+
+    最值性：有界闭区域 $D$ 上的连续函数在 $D$ 上取得最大值和最小值
+
+    介值定理：有界闭区域 $D$ 上的连续函数必能取得介于最小值和最大值的任意值
+
+    一致连续性：有界闭区域 $D$ 上的连续函数在 $D$ 上一致连续，即
+    \[
+    \forall \varepsilon > 0,\ \exists \delta > 0,\ \text{对任意的 } (x_1,y_1), (x_2,y_2) \in D,\]
+    \[
+    \text{当 } \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2} < \delta \text{ 时，恒有 } 
+    |f(x_1,y_1) - f(x_2,y_2)| < \varepsilon.
+    \]
+\end{xz}
+\begin{problem}
+    判断下列极限是否存在，若存在，求此极限；若不存在，请说明理由.
+(1) $\lim\limits_{(x,y)\to(0,0)} \dfrac{x-y}{x+y}$；
+(2) $\lim\limits_{(x,y)\to(0,0)} \dfrac{\sin(x+y)}{2(x+y)}$；
+(3) $\lim\limits_{(x,y)\to(0,0)} xy\sin\dfrac{1}{\sqrt{x^2+y^2}}$。
+\end{problem}
+\begin{solution}
+ \paragraph*{解 (1)}
+两条路径法：取路径 $y=0$，则
+\[
+\lim_{\substack{(x,y)\to(0,0) \\ y=0}} \frac{x-y}{x+y}
+= \lim_{x\to0} \frac{x-0}{x+0} = 1.
+\]
+ 取路径 $x=0$，则
+\[
+\lim_{\substack{(x,y)\to(0,0) \\ x=0}} \frac{x-y}{x+y}
+= \lim_{y\to0} \frac{0-y}{0+y} = -1.
+\]
+ 极限值不相等，因此该极限不存在
+
+含参数路径法：可取路径 $y=kx\ (k\neq -1)$，则
+\[
+\lim_{\substack{(x,y)\to(0,0) \\ y=kx}} \frac{x-y}{x+y}
+= \lim_{x\to0} \frac{x-kx}{x+kx}
+= \frac{1-k}{1+k}.
+\]
+由 $k$ 的不同取值可知，极限 $\lim\limits_{(x,y)\to(0,0)} \dfrac{x-y}{x+y}$ 不存在。
+\paragraph*{解 (2)}
+令 $t = x+y$，则当 $(x,y)\to(0,0)$ 时，$t\to0$，因此
+\[
+\lim_{(x,y)\to(0,0)} \frac{\sin(x+y)}{2(x+y)}
+= \lim_{t\to0} \frac{\sin t}{2t} = \frac{1}{2}.
+\]
+
+\paragraph*{解 (3)}
+解法1：由夹逼准则
+\[
+0 \le \left| xy\sin\frac{1}{\sqrt{x^2+y^2}} \right| \le |xy|,
+\]
+而 $\lim\limits_{(x,y)\to(0,0)} |xy| = 0$，因此
+\[
+\lim_{(x,y)\to(0,0)} xy\sin\frac{1}{\sqrt{x^2+y^2}} = 0.
+\]
+
+解法2：由于 $\lim\limits_{(x,y)\to(0,0)} xy = 0$，而 $\sin\dfrac{1}{\sqrt{x^2+y^2}}$ 是有界量，因此
+\[
+\lim_{(x,y)\to(0,0)} xy\sin\frac{1}{\sqrt{x^2+y^2}} = 0.
+\]
+\end{solution}
+\begin{note}
+    二元函数极限 $\lim\limits_{(x,y)\to(x_0,y_0)} f(x,y) = a$ 的定义中要求：在 $(x_0,y_0)$ 的某去心邻域内，点 $(x,y)$ 以任意方式趋于 $(x_0,y_0)$ 时，$f(x,y)$ 都趋于同一个常数 $a$。
+用定义判断函数 $f(x,y)$ 在点 $(x_0,y_0)$ 处极限的存在性是比较困难的。
+
+在已知二元函数的极限存在的情况下，求二元函数极限的主要方法有：
+
+(1) 利用极限的性质，如四则运算性质、夹逼准则等；
+
+(2) 利用换元法，将二元函数的极限运算转化为一元函数的极限运算，然后利用一元函数求极限的各种方法，如等价无穷小代换、重要极限、洛必达法则等；
+
+(3) 可用 $(x,y) \to (x_0,y_0)$ 的特殊方式代替一般方式。
+
+相反地，若点 $(x,y)$ 沿两个不同路径趋于 $(x_0,y_0)$ 时，$f(x,y)$ 趋于不同的常数，或点 $(x,y)$ 沿某个路径趋于 $(x_0,y_0)$ 时 $f(x,y)$ 的极限不存在，则 $f(x,y)$ 在点 $(x_0,y_0)$ 处的极限不存在。
+证明极限不存在的常用方法
+\begin{enumerate}
+    \item 一条路径法：找一条特殊路径，使 $f(x,y)$ 沿该路径趋于 $(x_0,y_0)$ 时，极限不存在。
+    \item 两条路径法：找两条不同的特殊路径，使 $f(x,y)$ 沿这两条路径趋于 $(x_0,y_0)$ 时，极限值不相等。
+    \item 含参数路径法：取 $y=kx$、$y=kx^2$ 等含参数的路径，若极限值与参数 $k$ 有关，则说明原极限不存在。
+    \item 极坐标代换法：令 $x=r\cos\theta,\ y=r\sin\theta$，若极限值与角度 $\theta$ 有关，则原极限不存在（这是最常用的方法）。
+\end{enumerate}
+常见判断思路：
+\begin{itemize}
+    \item 要证明极限存在，优先考虑夹逼、等价无穷小、极坐标代换等方法。
+    \item 要证明极限不存在，找两条路径得到不同极限值，或找一条路径使极限不存在。
+    \item “比较分子分母次数”只能作为猜测方向，不能直接当判别定理使用；分母可能为 $0$、路径可能特殊时尤其要回到定义或路径分析。
+\end{itemize}
+取特殊路径的方法：
+当分母有取到0的路径，例如：$x+y=0$，取路径 $y = -x + o(x)$。
+$o(x)$ 可取 $kx^2$ 或 $x^3$。
+在高阶无穷小取值，仅比前一阶高1次时，通常加上参数 $k$。
+\end{note}
+\begin{problem}
+    判断下列极限是否存在，若不存在，请说明理由：
+
+(1) $\displaystyle \lim_{(x,y)\to(0,0)} \frac{xy}{x-y}$;
+
+(2) $\displaystyle \lim_{(x,y)\to(0,0)} \frac{x^2 - y^4}{x^2 + y^4}$.
+\end{problem}
+\begin{solution}
+    (1) 两条路径法：取路径 $y = kx$ ($k \neq 1$)，则
+\[
+\lim_{\substack{(x,y)\to(0,0) \\ y=kx}} \frac{xy}{x-y}
+= \lim_{x\to 0} \frac{kx^2}{x - kx}
+= 0,
+\]
+但如果取路径 $y = x^2 + x$，则
+\[
+\lim_{\substack{(x,y)\to(0,0) \\ y=x^2+x}} \frac{xy}{x-y}
+= \lim_{x\to 0} \frac{x(x^2 + x)}{-x^2}
+= -1,
+\]
+因此 $\displaystyle \lim_{(x,y)\to(0,0)} \frac{xy}{x-y}$ 不存在。
+
+含参路径法：（分母可以取到0，取高阶无穷小）若取路径 $y = x^3 + x$，则
+\[
+\frac{xy}{x-y}\bigg|_{y=x+x^3}
+=\frac{x(x+x^3)}{x-(x+x^3)}
+=-\left(\frac{1}{x}+x\right),
+\]
+该表达式在 $x\to0$ 时无界，因此原极限不存在。
+
+\medskip
+(2) 取路径 $x = ky^2$ ($k \in \mathbb{R}$)，则
+\[
+\lim_{\substack{(x,y)\to(0,0) \\ x=ky^2}} \frac{x^2 - y^4}{x^2 + y^4}
+= \lim_{y\to 0} \frac{k^2y^4 - y^4}{k^2y^4 + y^4}
+= \frac{k^2 - 1}{k^2 + 1},
+\]
+因此，由 $k$ 的不同取值（路径不同），可知极限不存在
+\end{solution}
+\begin{problem}
+    求极限：\[
+(1)\ \lim_{(x,y)\to(0,0)} xy\ln(x^2 + y^2); \qquad
+(2)\ \lim_{(x,y)\to(0,0)} \frac{\sin xy}{x}.
+\]
+\end{problem}
+\begin{solution}
+    (1) 由均值不等式，
+\[
+0 \le \left|xy\ln(x^2 + y^2)\right|
+\le \left| \frac{x^2 + y^2}{2} \ln(x^2 + y^2) \right|.
+\]
+令 $t = x^2 + y^2$，则当 $(x,y)\to(0,0)$ 时，$t\to 0^+$，所以
+\[
+\lim_{(x,y)\to(0,0)} \frac{x^2 + y^2}{2}\ln(x^2 + y^2)
+= \lim_{t\to 0^+} \frac{t}{2}\ln t = 0,
+\]
+因此，$\displaystyle \lim_{(x,y)\to(0,0)} xy\ln(x^2 + y^2) = 0$.
+
+\medskip
+(2) 由于 $|\sin xy| \le |xy|$，因此
+\[
+0 \le \left| \frac{\sin xy}{x} \right| \le |y|,
+\]
+而 $\displaystyle \lim_{(x,y)\to(0,0)} |y| = 0$，因此
+\[
+\lim_{(x,y)\to(0,0)} \frac{\sin xy}{x} = 0.
+\]
+\end{solution}
+\subsection{第二节 偏导数}
+\begin{dy}{偏导数}{}
+设 \( z = f(x,y): U((x_0,y_0)) \subseteq \mathbb{R}^2 \to \mathbb{R} \).
+\paragraph{ \( f(x,y) \) 在点 \( (x_0,y_0) \) 处的偏导数}
+\[
+f_x(x_0,y_0) = \lim_{\Delta x \to 0} \frac{f(x_0+\Delta x,y_0) - f(x_0,y_0)}{\Delta x},
+\]
+也可记为
+\[
+\left. \frac{\partial f}{\partial x} \right|_{(x_0,y_0)},\quad
+\left. z_x \right|_{(x_0,y_0)},\quad
+\left. \frac{\partial z}{\partial x} \right|_{(x_0,y_0)}.
+\]
+
+\[
+f_y(x_0,y_0) = \lim_{\Delta y \to 0} \frac{f(x_0,y_0+\Delta y) - f(x_0,y_0)}{\Delta y},
+\]
+也可记为
+\[
+\left. \frac{\partial f}{\partial y} \right|_{(x_0,y_0)},\quad
+\left. z_y \right|_{(x_0,y_0)},\quad
+\left. \frac{\partial z}{\partial y} \right|_{(x_0,y_0)}.
+\]
+
+\paragraph{\( f(x,y) \) 的偏导函数}
+若函数 \( z = f(x,y) \) 在区域 \( D \) 上每一点处的偏导数 \( f_x(x,y) \) 和 \( f_y(x,y) \) 都存在，则记 \( f_x(x,y) \) 和 \( f_y(x,y) \) 为函数 \( z = f(x,y) \) 在区域 \( D \) 上的偏导函数，且
+\[
+f_x(x,y) = \lim_{\Delta x \to 0} \frac{f(x+\Delta x,y) - f(x,y)}{\Delta x},
+\quad
+f_y(x,y) = \lim_{\Delta y \to 0} \frac{f(x,y+\Delta y) - f(x,y)}{\Delta y}.
+\]
+
+\paragraph{ \( f(x_1,x_2,\dots,x_n) \) 的偏导函数}
+对 \( x_1 \):
+\[
+f_{x_1}(x_1,x_2,\dots,x_n)
+= \lim_{\Delta x_1 \to 0} \frac{f(x_1+\Delta x_1,x_2,\dots,x_n) - f(x_1,x_2,\dots,x_n)}{\Delta x_1}.
+\]
+类似地，可定义 \( f(x_1,x_2,\dots,x_n) \) 对 \( x_i \) 的偏导函数：
+\[
+f_{x_i}(x_1,x_2,\dots,x_n)
+= \lim_{\Delta x_i \to 0} \frac{f(x_1,\dots,x_{i-1},x_i+\Delta x_i,x_{i+1},\dots,x_n) - f(x_1,x_2,\dots,x_n)}{\Delta x_i},
+\quad i=2,3,\dots,n.
+\]
+
+\paragraph{ 偏导函数与偏导数的关系}
+\[
+f_x(x_0,y_0) = f_x(x,y)\big|_{(x_0,y_0)},\quad
+f_y(x_0,y_0) = f_y(x,y)\big|_{(x_0,y_0)}.
+\]
+\end{dy}
+\begin{dy}{高阶偏导数}{}
+若偏导函数 \( f_x(x,y) \) 和 \( f_y(x,y) \) 关于 \( x \) 或者 \( y \) 的偏导数存在，则可定义函数 \( z = f(x,y) \) 关于 \( x \) 或者 \( y \) 的二阶偏导数：
+\[
+z_{xx} = f_{xx} = \frac{\partial^2 z}{\partial x^2} = \frac{\partial}{\partial x}\left( \frac{\partial z}{\partial x} \right),
+\quad
+z_{xy} = f_{xy} = \frac{\partial^2 z}{\partial x\partial y} = \frac{\partial}{\partial y}\left( \frac{\partial z}{\partial x} \right),
+\]
+\[
+z_{yx} = f_{yx} = \frac{\partial^2 z}{\partial y\partial x} = \frac{\partial}{\partial x}\left( \frac{\partial z}{\partial y} \right),
+\quad
+z_{yy} = f_{yy} = \frac{\partial^2 z}{\partial y^2} = \frac{\partial}{\partial y}\left( \frac{\partial z}{\partial y} \right).
+\]
+
+当二阶混合偏导数 \( f_{xy} \) 和 \( f_{yx} \) 在区域 \( D \) 内连续时，在 \( D \) 内有 \( f_{xy} = f_{yx} \).
+
+类似地，可定义函数 \( z = f(x,y) \) 的更高阶偏导数
+\end{dy}
+\begin{problem}
+    讨论函数
+\[
+f(x,y) =
+\begin{cases}
+xy\sin\frac{1}{\sqrt{x^2+y^2}}, & x^2+y^2 \neq 0, \\
+0, & x^2+y^2 = 0,
+\end{cases}
+\]
+在点 \( (0,0) \) 处是否连续？偏导数是否存在？是否可微？
+\end{problem}
+\begin{note}
+    通常可用定义直接判断函数 \( f(x,y) \) 在点 \( (x_0,y_0) \) 处的连续性、偏导数存在性及可微性。
+
+\paragraph{连续性}
+通过判断 \( \lim\limits_{(x,y)\to(x_0,y_0)} f(x,y) = f(x_0,y_0) \) 是否成立，可判断函数 \( f(x,y) \) 在点 \( (x_0,y_0) \) 处是否连续。
+
+\paragraph{偏导数存在性}
+通过判断
+\[
+\lim_{\Delta x \to 0} \frac{f(x_0+\Delta x,y_0) - f(x_0,y_0)}{\Delta x},
+\quad
+\lim_{\Delta y \to 0} \frac{f(x_0,y_0+\Delta y) - f(x_0,y_0)}{\Delta y}
+\]
+是否存在，可分别判断偏导数 \( f_x(x_0,y_0) \)、\( f_y(x_0,y_0) \) 是否存在。
+
+\paragraph{可微性}
+用定义判断函数 \( f(x,y) \) 在点 \( (x_0,y_0) \) 处可微的步骤如下：
+
+     计算 \( \lim\limits_{(x,y)\to(x_0,y_0)} f(x,y) \)、\( f_x(x_0,y_0) \)、\( f_y(x_0,y_0) \)。若 \( \lim\limits_{(x,y)\to(x_0,y_0)} f(x,y) \neq f(x_0,y_0) \)，或者 \( f_x(x_0,y_0), f_y(x_0,y_0) \) 至少有一个不存在，则 \( f(x,y) \) 在点 \( (x_0,y_0) \) 处不可微。
+     判断
+    \[
+    \lim\limits_{(\Delta x,\Delta y)\to(0,0)} \frac{f(x_0+\Delta x,y_0+\Delta y)-f(x_0,y_0)-f_x(x_0,y_0)\Delta x-f_y(x_0,y_0)\Delta y}{\sqrt{(\Delta x)^2+(\Delta y)^2}} = 0
+    \]
+    是否成立，若成立，则 \( f(x,y) \) 在点 \( (x_0,y_0) \) 处可微，否则不可微。
+\end{note}
+\begin{solution}
+    \subparagraph{（1）连续性}
+由夹逼准则
+\[
+0 \le \left| xy\sin\frac{1}{\sqrt{x^2+y^2}} \right| \le |xy|,
+\]
+而 $\lim\limits_{(x,y)\to(0,0)} |xy| = 0$，因此
+\[
+\lim_{(x,y)\to(0,0)} xy\sin\frac{1}{\sqrt{x^2+y^2}} = 0=f(0,0).
+\]
+
+\subparagraph{（2）偏导数存在性}
+由偏导数定义：
+\[
+f_x(0,0) = \lim_{x\to 0} \frac{f(x,0)-f(0,0)}{x}
+= \lim_{x\to 0} \frac{x \cdot 0 \cdot \sin\frac{1}{\sqrt{x^2+0}} - 0}{x} = 0,
+\]
+同理可得 \( f_y(0,0) = 0 \)。因此，\( f(x,y) \) 在点 \( (0,0) \) 处的偏导数存在，且 \( f_x(0,0)=f_y(0,0)=0 \)。
+
+\subparagraph{（3）可微性}
+计算
+\[
+\left| \frac{f(x,y)-f(0,0)-f_x(0,0)x-f_y(0,0)y}{\sqrt{x^2+y^2}} \right|
+= \left| \frac{xy\sin\frac{1}{\sqrt{x^2+y^2}}}{\sqrt{x^2+y^2}} \right|
+\le \frac{|xy|}{\sqrt{x^2+y^2}}
+\le \frac{1}{2}\sqrt{x^2+y^2},
+\]
+当 \( (x,y)\to(0,0) \) 时，上式极限为 0，即
+\[
+\lim_{(x,y)\to(0,0)} \frac{f(x,y)-f(0,0)-f_x(0,0)x-f_y(0,0)y}{\sqrt{x^2+y^2}} = 0,
+\]
+因此 \( f(x,y) \) 在点 \( (0,0) \) 处可微。
+
+\subparagraph{补充：偏导函数的连续性}
+计算偏导函数：
+\[
+f_x(x,y) =
+\begin{cases}
+y\sin\frac{1}{\sqrt{x^2+y^2}} - \frac{x^2y}{(\sqrt{x^2+y^2})^3}\cos\frac{1}{\sqrt{x^2+y^2}}, & x^2+y^2 \neq 0, \\
+0, & x^2+y^2 = 0,
+\end{cases}
+\]
+沿路径 $x=y$ 时，$f_x(x,y)$ 中的振荡项不趋于 $0$，所以 \( \lim\limits_{(x,y)\to(0,0)} f_x(x,y) \) 不存在，故 \( f_x(x,y) \) 在点 \( (0,0) \) 处不连续。同理 \( f_y(x,y) \) 在点 \( (0,0) \) 处也不连续。由此可见：偏导函数在点 \( (x_0,y_0) \) 处连续是函数 \( f(x,y) \) 在点 \( (x_0,y_0) \) 处可微的充分条件而非必要条件。
+\end{solution}
+\subsection{第三节 复合函数求导法则}
+\begin{dy}{链式法则}{}
+若函数 \( u = \varphi(x,y) \) 及 \( v = \psi(x,y) \) 在点 \( (x,y) \) 处具有连续偏导数，函数 \( z = f(u,v) \) 在对应点 \( (u,v) \) 处具有连续偏导数，则复合函数 \( z = f[\varphi(x,y), \psi(x,y)] \) 在点 \( (x,y) \) 处的偏导数连续，且
+\[
+\frac{\partial z}{\partial x} = \frac{\partial z}{\partial u}\frac{\partial u}{\partial x} + \frac{\partial z}{\partial v}\frac{\partial v}{\partial x},
+\quad
+\frac{\partial z}{\partial y} = \frac{\partial z}{\partial u}\frac{\partial u}{\partial y} + \frac{\partial z}{\partial v}\frac{\partial v}{\partial y}.
+\]
+\end{dy}
+\begin{problem}
+    设 \( z = f(e^x\sin y, x^2+y^2) \)，求 \( \frac{\partial z}{\partial x} \), \( \frac{\partial^2 z}{\partial x\partial y} \)
+\end{problem}
+\begin{solution}
+    由链式法则，令 \( u = e^x\sin y, v = x^2+y^2 \)，则
+\[
+\frac{\partial z}{\partial x} = e^x\sin y f_1 + 2x f_2,
+\]
+其中 \( f_1 = f_u(u,v), f_2 = f_v(u,v) \)。
+
+再求混合偏导：
+\[
+\begin{aligned}
+\frac{\partial^2 z}{\partial x\partial y} &= e^x\cos y f_1 + e^x\sin y\left(f_{11}e^x\cos y + f_{12}\cdot 2y\right) + 2x\left(f_{21}e^x\cos y + f_{22}\cdot 2y\right) \\
+&= e^x\cos y f_1 + e^{2x}\sin y\cos y f_{11} + 2ye^x\sin y f_{12} + 2xe^x\cos y f_{21} + 4xy f_{22}.
+\end{aligned}
+\]
+由于 \( f \) 具有二阶连续偏导数，故 \( f_{12} = f_{21} \)。
+\end{solution}
+
+\subsection{第四节 全微分}
+\begin{summarybox}{与前后章节的关系}
+前面已经学习了二元函数的极限、连续性、偏导数和复合函数求导。偏导数只描述沿坐标轴方向的变化率，而全微分描述函数在一点附近的整体线性近似。后面隐函数求导、方向导数、切平面、极值判别都要反复用到“局部线性化”这个思想。
+\end{summarybox}
+
+\begin{dy}{全微分}{def-total-differential}
+设函数 $z=f(x,y)$ 在点 $(x,y)$ 的某邻域内有定义。若全增量
+\[
+  \Delta z=f(x+\Delta x,y+\Delta y)-f(x,y)
+\]
+可以表示为
+\[
+  \Delta z=A\Delta x+B\Delta y+o(\rho),\qquad
+  \rho=\sqrt{(\Delta x)^2+(\Delta y)^2},
+\]
+其中 $A,B$ 与 $\Delta x,\Delta y$ 无关，则称 $f$ 在点 $(x,y)$ 可微，并称
+\[
+  \dif z=A\Delta x+B\Delta y
+\]
+为 $f$ 在该点的全微分。通常记 $\Delta x=\dif x,\Delta y=\dif y$，于是
+\[
+  \dif z=f_x(x,y)\dif x+f_y(x,y)\dif y.
+\]
+\end{dy}
+
+\begin{dl}{可微的充分条件}{thm-differentiable}
+若 $f_x(x,y)$ 与 $f_y(x,y)$ 在点 $(x_0,y_0)$ 的某邻域内存在，并且在 $(x_0,y_0)$ 连续，则 $f$ 在 $(x_0,y_0)$ 可微。
+\end{dl}
+
+\begin{methodbox}{四个概念的关系}
+\[
+\text{偏导数连续}\Longrightarrow \text{可微}
+\Longrightarrow \text{连续}
+\]
+\[
+\text{可微}\Longrightarrow \text{两个偏导数存在}.
+\]
+反过来一般不成立：
+\begin{itemize}
+  \item 偏导数存在，不一定连续，也不一定可微。
+  \item 函数连续，不一定偏导存在，也不一定可微。
+  \item 偏导存在且函数连续，仍不一定可微，除非能控制余项为 $o(\rho)$。
+\end{itemize}
+\end{methodbox}
+
+\begin{problem}
+求函数
+\[
+  z=x^2y+\sin(xy)
+\]
+的全微分。
+\end{problem}
+\begin{solution}
+先分别对 $x,y$ 求偏导：
+\[
+  f_x=2xy+y\cos(xy),\qquad
+  f_y=x^2+x\cos(xy).
+\]
+因此
+\[
+  \dif z=\left(2xy+y\cos(xy)\right)\dif x+
+  \left(x^2+x\cos(xy)\right)\dif y.
+\]
+\end{solution}
+\begin{note}
+全微分的第一步通常就是求两个偏导。不要把 $xy$ 当作一个整体直接“乱微分”，对 $x$ 求偏导时 $y$ 是常数，对 $y$ 求偏导时 $x$ 是常数。
+\end{note}
+
+\begin{problem}
+利用全微分估算
+\[
+  f(x,y)=x^2\sqrt{y}
+\]
+在 $(1,4)$ 附近，当 $\Delta x=0.02,\Delta y=-0.04$ 时的函数增量 $\Delta f$。
+\end{problem}
+\begin{solution}
+有
+\[
+  f_x=2x\sqrt{y},\qquad f_y=\frac{x^2}{2\sqrt y}.
+\]
+在 $(1,4)$ 处，
+\[
+  f_x(1,4)=4,\qquad f_y(1,4)=\frac14.
+\]
+因此
+\[
+  \Delta f\approx \dif f=4\cdot 0.02+\frac14\cdot(-0.04)=0.08-0.01=0.07.
+\]
+所以函数值大约增加 $0.07$。
+\end{solution}
+\begin{note}
+全微分近似的本质是“用切平面代替曲面”。题目若出现“近似计算”“估计误差”，优先想到全微分。
+\end{note}
+
+\begin{problem}
+设
+\[
+f(x,y)=
+\begin{cases}
+\dfrac{xy}{\sqrt{x^2+y^2}},&(x,y)\ne(0,0),\\[6pt]
+0,&(x,y)=(0,0).
+\end{cases}
+\]
+证明 $f_x(0,0)$ 与 $f_y(0,0)$ 都存在，但 $f$ 在 $(0,0)$ 不可微。
+\end{problem}
+\begin{solution}
+由偏导定义，
+\[
+  f_x(0,0)=\lim_{h\to0}\frac{f(h,0)-f(0,0)}{h}=0,
+\]
+\[
+  f_y(0,0)=\lim_{k\to0}\frac{f(0,k)-f(0,0)}{k}=0.
+\]
+若 $f$ 在原点可微，由于两个偏导都为 $0$，应有
+\[
+  f(x,y)=o\left(\sqrt{x^2+y^2}\right).
+\]
+取路径 $y=x$，则
+\[
+  \frac{f(x,x)}{\sqrt{x^2+x^2}}
+  =\frac{x^2/(\sqrt2|x|)}{\sqrt2|x|}
+  =\frac12 \quad (x\ne0).
+\]
+该比值不趋于 $0$，所以 $f$ 在 $(0,0)$ 不可微。
+\end{solution}
+\begin{note}
+要证明不可微，常用思路是“假设线性主部存在，然后找路径使余项除以 $\rho$ 不趋于 $0$”。这类题很常考。
+\end{note}
+
+\begin{warningbox}{本节易错点}
+\begin{itemize}
+  \item 偏导存在只说明沿两条坐标轴方向的变化率存在，不能推出函数在所有方向都有良好的线性近似。
+  \item 判定可微时，若偏导连续，直接用充分条件；若偏导不连续或题目是分段函数，要回到定义检查余项。
+  \item 写全微分时要保留 $\dif x,\dif y$，不要把它写成一个数。
+\end{itemize}
+\end{warningbox}
+
+\subsection{第五节 隐函数的求导公式}
+
+\begin{summarybox}{核心思想}
+显函数把因变量直接写成自变量的函数，例如 $y=f(x)$。隐函数则由方程限制给出，例如
+\[
+  F(x,y)=0,\qquad F(x,y,z)=0.
+\]
+求导时不必先把 $y$ 或 $z$ 解出来，而是对方程两边求导，再把目标导数解出来。
+\end{summarybox}
+
+\subsubsection*{一、一个方程的情形}
+\addcontentsline{toc}{subsubsection}{一、一个方程的情形}
+
+\begin{dl}{一元隐函数求导公式}{thm-implicit-one}
+设 $F(x,y)=0$ 在点 $(x_0,y_0)$ 附近确定隐函数 $y=y(x)$，且 $F_y(x_0,y_0)\ne0$。则
+\[
+  \dd{y}{x}=-\frac{F_x}{F_y}.
+\]
+\end{dl}
+
+\begin{dl}{二元隐函数求导公式}{thm-implicit-two}
+设 $F(x,y,z)=0$ 在点 $(x_0,y_0,z_0)$ 附近确定隐函数 $z=z(x,y)$，且 $F_z(x_0,y_0,z_0)\ne0$。则
+\[
+  \pd{z}{x}=-\frac{F_x}{F_z},\qquad
+  \pd{z}{y}=-\frac{F_y}{F_z}.
+\]
+\end{dl}
+
+\begin{methodbox}{隐函数题目的固定步骤}
+\begin{enumerate}
+  \item 把方程统一写成 $F=0$。
+  \item 判断要求的是 $\dd{y}{x}$ 还是 $\pd{z}{x},\pd{z}{y}$。
+  \item 分别求 $F_x,F_y,F_z$。注意求偏导时把其他变量暂时看成独立变量。
+  \item 套用 $-\dfrac{F_x}{F_y}$ 或 $-\dfrac{F_x}{F_z}$。
+  \item 如需某点处的值，最后再代入点坐标。
+\end{enumerate}
+\end{methodbox}
+
+\begin{problem}
+由方程
+\[
+  x^2+y^2-1=0
+\]
+确定 $y=y(x)$，求 $\dd{y}{x}$。
+\end{problem}
+\begin{solution}
+令
+\[
+  F(x,y)=x^2+y^2-1.
+\]
+则
+\[
+  F_x=2x,\qquad F_y=2y.
+\]
+由隐函数求导公式，
+\[
+  \dd{y}{x}=-\frac{F_x}{F_y}=-\frac{2x}{2y}=-\frac{x}{y}.
+\]
+\end{solution}
+\begin{note}
+如果直接对 $x^2+y^2=1$ 两边求导，也会得到 $2x+2yy'=0$，从而 $y'=-x/y$。公式法和直接求导法本质相同。
+\end{note}
+
+\begin{problem}
+由方程
+\[
+  \e^z-xyz=0
+\]
+确定 $z=z(x,y)$，求 $\pd{z}{x}$ 与 $\pd{z}{y}$。
+\end{problem}
+\begin{solution}
+令
+\[
+  F(x,y,z)=\e^z-xyz.
+\]
+把 $x,y,z$ 暂时看作独立变量，得
+\[
+  F_x=-yz,\qquad F_y=-xz,\qquad F_z=\e^z-xy.
+\]
+因此
+\[
+  \pd{z}{x}=-\frac{F_x}{F_z}
+  =\frac{yz}{\e^z-xy},
+  \qquad
+  \pd{z}{y}=-\frac{F_y}{F_z}
+  =\frac{xz}{\e^z-xy}.
+\]
+\end{solution}
+\begin{note}
+求 $F_z$ 时，$-xyz$ 对 $z$ 求偏导得到 $-xy$，而不是把 $z$ 当成 $z(x,y)$ 再链式求导。公式中的偏导是对 $F$ 本身求偏导。
+\end{note}
+
+\subsubsection*{二、方程组的情形}
+\addcontentsline{toc}{subsubsection}{二、方程组的情形}
+
+\begin{methodbox}{方程组隐函数求导}
+若方程组确定 $u=u(x,y),v=v(x,y)$，对 $x$ 求偏导时可把 $u_x,v_x$ 当未知量，解由求导得到的线性方程组。记不住行列式公式时，直接对原方程组求导最稳。
+\end{methodbox}
+\begin{problem}
+方程组
+\[
+\begin{cases}
+x+u+v=0,\\
+y+u-v=0
+\end{cases}
+\]
+确定 $u=u(x,y),v=v(x,y)$。求 $u_x$ 与 $v_x$。
+\end{problem}
+\begin{solution}
+对 $x$ 求偏导，注意 $u,v$ 都是 $x,y$ 的函数：
+\[
+\begin{cases}
+1+u_x+v_x=0,\\
+u_x-v_x=0.
+\end{cases}
+\]
+由第二式得 $u_x=v_x$，代入第一式得
+\[
+  1+2u_x=0.
+\]
+所以
+\[
+  u_x=-\frac12,\qquad v_x=-\frac12.
+\]
+\end{solution}
+\begin{note}
+隐函数方程组的思想是“对方程组整体求导，再解线性方程组”。考试中若公式记不住，直接这样做往往更稳。
+\end{note}
+
+\begin{warningbox}{本节易错点}
+\begin{itemize}
+  \item 套公式前必须先写成 $F=0$，不能把等号两边随意套进去。
+  \item $F_y$ 或 $F_z$ 在分母位置，题目若要求说明隐函数存在，要检查它不为 $0$。
+  \item 对方程组求导时，不要漏掉 $u_x,v_x$ 这类“隐藏导数”。
+\end{itemize}
+\end{warningbox}
+
+\subsection{第六节 方向导数与梯度}
+
+\begin{summarybox}{概念动机}
+偏导数只看沿 $x$ 轴或 $y$ 轴方向的变化，而实际问题常常关心任意方向上的变化率。例如温度场中从某点往东北方向走，温度上升最快的方向是什么？方向导数回答“某个方向上变化多快”，梯度回答“哪个方向变化最快”。
+\end{summarybox}
+
+\subsubsection*{一、方向导数}
+\addcontentsline{toc}{subsubsection}{一、方向导数}
+
+\begin{dy}{方向导数}{def-directional}
+设 $z=f(x,y)$ 在点 $P_0(x_0,y_0)$ 附近有定义，$\bm e_l=(\cos\alpha,\cos\beta)$ 是方向 $l$ 的单位向量。若极限
+\[
+  \lim_{\rho\to0^+}
+  \frac{f(x_0+\rho\cos\alpha,y_0+\rho\cos\beta)-f(x_0,y_0)}{\rho}
+\]
+存在，则称其为 $f$ 在 $P_0$ 沿方向 $l$ 的方向导数，记作
+\[
+  \left.\pd{f}{l}\right|_{P_0}.
+\]
+\end{dy}
+
+\begin{dl}{方向导数公式}{thm-directional}
+若 $f$ 在 $P_0(x_0,y_0)$ 可微，则沿单位方向 $\bm e_l=(\cos\alpha,\cos\beta)$ 的方向导数为
+\[
+  \left.\pd{f}{l}\right|_{P_0}
+  =f_x(x_0,y_0)\cos\alpha+f_y(x_0,y_0)\cos\beta.
+\]
+对三元函数 $u=f(x,y,z)$，若 $\bm e_l=(\cos\alpha,\cos\beta,\cos\gamma)$，则
+\[
+  \left.\pd{f}{l}\right|_{P_0}
+  =f_x\cos\alpha+f_y\cos\beta+f_z\cos\gamma.
+\]
+\end{dl}
+
+\subsubsection*{二、梯度}
+\addcontentsline{toc}{subsubsection}{二、梯度}
+
+\begin{dy}{梯度}{def-gradient}
+二元函数 $f(x,y)$ 在点 $(x_0,y_0)$ 的梯度为
+\[
+  \nabla f(x_0,y_0)=\left(f_x(x_0,y_0),f_y(x_0,y_0)\right).
+\]
+三元函数 $f(x,y,z)$ 的梯度为
+\[
+  \nabla f(x,y,z)=\left(f_x,f_y,f_z\right).
+\]
+\end{dy}
+
+\begin{xz}{梯度的几何意义}{prop-gradient}
+\[
+  \pd{f}{l}=\nabla f\cdot \bm e_l=|\nabla f|\cos\theta.
+\]
+因此：
+\begin{itemize}
+  \item 函数在梯度方向上增长最快，最大方向导数为 $|\nabla f|$；
+  \item 函数在负梯度方向上下降最快，最小方向导数为 $-|\nabla f|$；
+  \item 梯度垂直于等值线 $f(x,y)=C$，也垂直于等值面 $f(x,y,z)=C$。
+\end{itemize}
+\end{xz}
+
+\begin{center}
+\begin{tikzpicture}[mpdiagram,scale=0.86]
+  \draw[mpboundary] (0,0) ellipse (3.0 and 1.35);
+  \draw[MaterialPurple!72,line width=0.75pt] (0,0) ellipse (2.1 and 0.92);
+  \draw[MaterialPurple!55,line width=0.65pt] (0,0) ellipse (1.15 and 0.50);
+  \fill[MaterialRed] (0,0) circle (1.25pt) node[below left,mplabel] {$P$};
+  \draw[mpaccent] (0,0) -- (1.75,0.92) node[right,mplabel] {$\nabla f(P)$};
+  \draw[mpvector] (0,0) -- (1.15,-0.35) node[below right,mplabel] {$\bm e$};
+  \node[mplabel] at (-2.65,1.20) {$f(x,y)=C$};
+\end{tikzpicture}
+\diagramcaption{梯度垂直等值线，并指向函数增长最快的方向。}
+\end{center}
+\begin{problem}
+设 $z=xe^{2y}$。求它在点 $P(1,0)$ 沿从 $P(1,0)$ 指向 $Q(2,-1)$ 的方向导数。
+\end{problem}
+\begin{solution}
+方向向量为
+\[
+  \overrightarrow{PQ}=(1,-1),
+\]
+对应单位向量为
+\[
+  \bm e_l=\left(\frac1{\sqrt2},-\frac1{\sqrt2}\right).
+\]
+又
+\[
+  f_x=e^{2y},\qquad f_y=2xe^{2y}.
+\]
+在 $(1,0)$ 处，
+\[
+  f_x(1,0)=1,\qquad f_y(1,0)=2.
+\]
+所以方向导数为
+\[
+  \left.\pd{f}{l}\right|_{(1,0)}
+  =1\cdot\frac1{\sqrt2}+2\cdot\left(-\frac1{\sqrt2}\right)
+  =-\frac{\sqrt2}{2}.
+\]
+\end{solution}
+\begin{note}
+题目给出“从点 $P$ 指向点 $Q$”时，先求向量 $\overrightarrow{PQ}$，再单位化。方向导数公式中的方向必须是单位向量。
+\end{note}
+
+\begin{problem}
+设
+\[
+  f(x,y)=x^2-xy+y^2.
+\]
+求 $f$ 在点 $(1,1)$ 增长最快的方向及最大方向导数。
+\end{problem}
+\begin{solution}
+先求梯度：
+\[
+  f_x=2x-y,\qquad f_y=-x+2y.
+\]
+在 $(1,1)$ 处，
+\[
+  \nabla f(1,1)=(1,1).
+\]
+因此增长最快方向为梯度方向，其单位向量为
+\[
+  \frac{\nabla f(1,1)}{|\nabla f(1,1)|}
+  =\left(\frac1{\sqrt2},\frac1{\sqrt2}\right).
+\]
+最大方向导数为
+\[
+  |\nabla f(1,1)|=\sqrt{1^2+1^2}=\sqrt2.
+\]
+\end{solution}
+\begin{note}
+如果题目问“减少最快方向”，答案就是负梯度方向，最小方向导数为 $-\sqrt2$。
+\end{note}
+
+\begin{problem}
+求曲面
+\[
+  x^2+y^2-z=0
+\]
+在点 $(1,2,5)$ 处的法向量。
+\end{problem}
+\begin{solution}
+令
+\[
+  F(x,y,z)=x^2+y^2-z.
+\]
+曲面 $F(x,y,z)=0$ 的法向量可取梯度
+\[
+  \nabla F=(2x,2y,-1).
+\]
+在点 $(1,2,5)$ 处，
+\[
+  \nabla F(1,2,5)=(2,4,-1).
+\]
+所以曲面在该点处的一个法向量为 $(2,4,-1)$。
+\end{solution}
+\begin{note}
+等值面 $F=C$ 的法向量就是 $\nabla F$。切平面题也常从这里开始。
+\end{note}
+
+\subsection{第七节 多元函数微分学的几何应用}
+
+\begin{summarybox}{知识脉络}
+这一节把多元函数微分学转化为几何语言：曲线的一阶导数给切向量，曲面的梯度给法向量。只要找到“切向量”或“法向量”，直线和平面的方程就能直接写出来。
+\end{summarybox}
+
+\subsubsection*{一、空间曲线的切线与法平面}
+\addcontentsline{toc}{subsubsection}{一、空间曲线的切线与法平面}
+
+\begin{methodbox}{常用公式}
+\textbf{1. 参数曲线}
+\[
+  \Gamma:\quad x=\varphi(t),\ y=\psi(t),\ z=\omega(t).
+\]
+在 $t=t_0$ 处的切向量为
+\[
+  \bm T=\left(\varphi'(t_0),\psi'(t_0),\omega'(t_0)\right).
+\]
+若 $M_0(x_0,y_0,z_0)$ 为对应点，则切线方程为
+\[
+  \frac{x-x_0}{\varphi'(t_0)}
+  =\frac{y-y_0}{\psi'(t_0)}
+  =\frac{z-z_0}{\omega'(t_0)}.
+\]
+法平面方程为
+\[
+  \varphi'(t_0)(x-x_0)+\psi'(t_0)(y-y_0)+\omega'(t_0)(z-z_0)=0.
+\]
+
+\textbf{2. 隐式曲面}
+\[
+  \Sigma:\quad F(x,y,z)=0.
+\]
+在点 $M_0$ 处，法向量为
+\[
+  \bm n=\nabla F(M_0)=\left(F_x(M_0),F_y(M_0),F_z(M_0)\right).
+\]
+切平面方程为
+\[
+  F_x(M_0)(x-x_0)+F_y(M_0)(y-y_0)+F_z(M_0)(z-z_0)=0.
+\]
+法线方程为
+\[
+  \frac{x-x_0}{F_x(M_0)}
+  =\frac{y-y_0}{F_y(M_0)}
+  =\frac{z-z_0}{F_z(M_0)}.
+\]
+
+\textbf{3. 显式曲面}
+\[
+  z=f(x,y),\qquad M_0(x_0,y_0,z_0).
+\]
+切平面方程为
+\[
+  z-z_0=f_x(x_0,y_0)(x-x_0)+f_y(x_0,y_0)(y-y_0).
+\]
+\end{methodbox}
+
+\begin{problem}
+求螺旋线
+\[
+  x=\cos t,\qquad y=\sin t,\qquad z=t
+\]
+在 $t=\dfrac{\pi}{2}$ 处的切线与法平面。
+\end{problem}
+\begin{solution}
+当 $t=\dfrac{\pi}{2}$ 时，
+\[
+  M_0=\left(0,1,\frac{\pi}{2}\right).
+\]
+切向量为
+\[
+  \bm T=\left(-\sin t,\cos t,1\right)\Big|_{t=\pi/2}=(-1,0,1).
+\]
+故切线方程为
+\[
+  \frac{x-0}{-1}=\frac{y-1}{0}=
+  \frac{z-\frac{\pi}{2}}{1}.
+\]
+法平面方程为
+\[
+  -1(x-0)+0(y-1)+1\left(z-\frac{\pi}{2}\right)=0,
+\]
+即
+\[
+  x-z+\frac{\pi}{2}=0.
+\]
+\end{solution}
+\begin{note}
+分母为 $0$ 的对称式表示该坐标不变。例如 $\dfrac{y-1}{0}$ 表示 $y=1$。
+\end{note}
+
+\subsubsection*{二、空间曲面的切平面与法线}
+\addcontentsline{toc}{subsubsection}{二、空间曲面的切平面与法线}
+
+\begin{center}
+\begin{tikzpicture}[mpdiagram,scale=0.88]
+  \draw[mpboundary] (-2.6,-0.65) .. controls (-1.4,0.65) and (1.4,0.65) .. (2.6,-0.65);
+  \draw[MaterialBlueGrey!60,line width=0.65pt] (-2.0,-1.05) .. controls (-0.7,-0.20) and (0.7,-0.20) .. (2.0,-1.05);
+  \path[mpregion] (-1.8,-0.25) -- (1.9,0.25) -- (1.35,1.05) -- (-2.35,0.55) -- cycle;
+  \fill[MaterialRed] (0,0.36) circle (1.25pt) node[below right,mplabel] {$M_0$};
+  \draw[mpaccent] (0,0.36) -- (0.45,2.0) node[right,mplabel] {$\bm n=\nabla F(M_0)$};
+  \node[mplabel] at (1.9,0.85) {切平面};
+  \node[mplabel] at (-1.75,-1.15) {曲面 $F(x,y,z)=0$};
+\end{tikzpicture}
+\diagramcaption{曲面 $F(x,y,z)=0$ 在一点的法向量可取该点的梯度。}
+\end{center}
+\begin{problem}
+求球面
+\[
+  x^2+y^2+z^2=14
+\]
+在点 $(1,2,3)$ 处的切平面与法线。
+\end{problem}
+\begin{solution}
+令
+\[
+  F(x,y,z)=x^2+y^2+z^2-14.
+\]
+则
+\[
+  \nabla F=(2x,2y,2z).
+\]
+在 $(1,2,3)$ 处，法向量可取
+\[
+  \bm n=(2,4,6),
+\]
+也可简化为 $(1,2,3)$。切平面为
+\[
+  1(x-1)+2(y-2)+3(z-3)=0,
+\]
+整理得
+\[
+  x+2y+3z-14=0.
+\]
+法线为
+\[
+  \frac{x-1}{1}=\frac{y-2}{2}=\frac{z-3}{3}.
+\]
+\end{solution}
+\begin{note}
+法向量可以乘任意非零常数，所以 $(2,4,6)$ 和 $(1,2,3)$ 等价。
+\end{note}
+
+
+\subsection{第八节 多元函数的极值}
+
+\begin{summarybox}{学习目标}
+多元函数极值题分为两类：无约束极值和条件极值。无约束极值先找驻点，再用二阶偏导判别；条件极值一般用拉格朗日乘数法。若题目问闭区域上的最大值、最小值，还必须同时检查内部驻点和边界。
+\end{summarybox}
+
+\subsubsection*{一、极小值、极大值与最小值、最大值}
+\addcontentsline{toc}{subsubsection}{一、极小值、极大值与最小值、最大值}
+
+\begin{dy}{驻点与极值}{def-stationary}
+若 $f_x(x_0,y_0)=0$ 且 $f_y(x_0,y_0)=0$，则称 $(x_0,y_0)$ 为函数 $f(x,y)$ 的驻点。若在 $(x_0,y_0)$ 的某邻域内恒有
+\[
+  f(x,y)\le f(x_0,y_0)
+\]
+或恒有
+\[
+  f(x,y)\ge f(x_0,y_0),
+\]
+则分别称 $f(x_0,y_0)$ 为局部极大值或局部极小值。
+\end{dy}
+
+\begin{dl}{二元函数极值的二阶判别法}{thm-hessian}
+设 $(x_0,y_0)$ 是 $f(x,y)$ 的驻点，并记
+\[
+  A=f_{xx}(x_0,y_0),\qquad
+  B=f_{xy}(x_0,y_0),\qquad
+  C=f_{yy}(x_0,y_0).
+\]
+令
+\[
+  D=AC-B^2.
+\]
+则：
+\begin{itemize}
+  \item 若 $D>0$ 且 $A>0$，则 $f(x_0,y_0)$ 为局部极小值；
+  \item 若 $D>0$ 且 $A<0$，则 $f(x_0,y_0)$ 为局部极大值；
+  \item 若 $D<0$，则 $(x_0,y_0)$ 不是极值点；
+  \item 若 $D=0$，该方法失效，需要另作判断。
+\end{itemize}
+\end{dl}
+
+\begin{problem}
+求函数
+\[
+  f(x,y)=x^3-y^3+3x^2+3y^2-9x
+\]
+的极值。
+\end{problem}
+\begin{solution}
+先求一阶偏导：
+\[
+  f_x=3x^2+6x-9=3(x-1)(x+3),
+\]
+\[
+  f_y=-3y^2+6y=-3y(y-2).
+\]
+令 $f_x=f_y=0$，得驻点
+\[
+  (1,0),\quad (1,2),\quad (-3,0),\quad (-3,2).
+\]
+二阶偏导为
+\[
+  A=f_{xx}=6x+6,\qquad B=f_{xy}=0,\qquad C=f_{yy}=-6y+6.
+\]
+逐点判别：
+\[
+\begin{array}{c|c|c|c}
+\text{驻点} & A & C & D=AC-B^2\\ \hline
+(1,0)&12&6&72\\
+(1,2)&12&-6&-72\\
+(-3,0)&-12&6&-72\\
+(-3,2)&-12&-6&72
+\end{array}
+\]
+所以：
+\begin{itemize}
+  \item $(1,0)$ 处 $D>0,A>0$，为局部极小值，$f(1,0)=-5$；
+  \item $(-3,2)$ 处 $D>0,A<0$，为局部极大值，$f(-3,2)=31$；
+  \item $(1,2),(-3,0)$ 处 $D<0$，不是极值点。
+\end{itemize}
+\end{solution}
+\begin{note}
+做这类题时建议列判别表，避免在多个驻点之间来回代入导致符号错误。
+\end{note}
+
+\begin{problem}
+求函数
+\[
+  f(x,y)=x^2+y^2-2x-4y
+\]
+在闭圆域
+\[
+  D=\{(x,y)\mid x^2+y^2\le9\}
+\]
+上的最大值和最小值。
+\end{problem}
+\begin{solution}
+先看区域内部。由
+\[
+  f_x=2x-2,\qquad f_y=2y-4
+\]
+得驻点 $(1,2)$，它在圆域内，且
+\[
+  f(1,2)=1+4-2-8=-5.
+\]
+
+再看边界 $x^2+y^2=9$。在边界上
+\[
+  f=x^2+y^2-2x-4y=9-2x-4y.
+\]
+由 Cauchy 不等式，
+\[
+  -6\sqrt5\le 2x+4y\le 6\sqrt5.
+\]
+因此边界上
+\[
+  9-6\sqrt5\le f\le 9+6\sqrt5.
+\]
+比较可知最小值为 $-5$，在 $(1,2)$ 处取得；最大值为
+\[
+  9+6\sqrt5.
+\]
+\end{solution}
+\begin{note}
+闭区域上的最值题要分“内部驻点”和“边界”两部分。只做 Hessian 判别是不够的。
+\end{note}
+
+\subsubsection*{二、条件极值}
+\addcontentsline{toc}{subsubsection}{二、条件极值}
+
+\begin{methodbox}{拉格朗日乘数法}
+求 $f(x,y)$ 在约束 $\varphi(x,y)=0$ 下的条件极值，可构造
+\[
+  L(x,y,\lambda)=f(x,y)+\lambda\varphi(x,y),
+\]
+再解方程组
+\[
+\begin{cases}
+L_x=f_x+\lambda\varphi_x=0,\\
+L_y=f_y+\lambda\varphi_y=0,\\
+L_\lambda=\varphi(x,y)=0.
+\end{cases}
+\]
+若有两个约束 $\varphi(x,y,z)=0,\psi(x,y,z)=0$，可令
+\[
+  L=f+\lambda\varphi+\mu\psi
+\]
+并对 $x,y,z,\lambda,\mu$ 分别求偏导。
+\end{methodbox}
+
+\begin{problem}
+求 $f(x,y)=xy$ 在约束 $x+2y=6$ 下的最大值和最小值情况。
+\end{problem}
+\begin{solution}
+构造
+\[
+  L(x,y,\lambda)=xy+\lambda(x+2y-6).
+\]
+令
+\[
+\begin{cases}
+L_x=y+\lambda=0,\\
+L_y=x+2\lambda=0,\\
+L_\lambda=x+2y-6=0.
+\end{cases}
+\]
+由前两式得 $\lambda=-y$，$x=-2\lambda=2y$。代入约束：
+\[
+  2y+2y=6\quad\Rightarrow\quad y=\frac32,\quad x=3.
+\]
+此时
+\[
+  f(3,\tfrac32)=\frac92.
+\]
+由于约束 $x+2y=6$ 是无界直线，$xy$ 在该直线上没有全局最小值，但在点 $(3,\frac32)$ 处取得沿约束意义下的最大值。
+\end{solution}
+\begin{note}
+拉格朗日乘数法给出候选点，不自动保证最大或最小。若约束集合不闭有界，一定要额外判断全局最值是否存在。
+\end{note}
+
+\begin{problem}
+一个长方体的三个棱长为 $x,y,z>0$，表面积为 $6a^2$。求体积 $V=xyz$ 的最大值。
+\end{problem}
+\begin{solution}
+表面积条件为
+\[
+  2(xy+yz+zx)=6a^2,
+\]
+即
+\[
+  xy+yz+zx=3a^2.
+\]
+构造
+\[
+  L(x,y,z,\lambda)=xyz+\lambda(xy+yz+zx-3a^2).
+\]
+求偏导并令其为 $0$：
+\[
+\begin{cases}
+yz+\lambda(y+z)=0,\\
+xz+\lambda(x+z)=0,\\
+xy+\lambda(x+y)=0,\\
+xy+yz+zx-3a^2=0.
+\end{cases}
+\]
+由前三式两两相减：
+\[
+  (y-x)(z+\lambda)=0,\qquad
+  (z-y)(x+\lambda)=0,\qquad
+  (x-z)(y+\lambda)=0.
+\]
+在 $x,y,z>0$ 的最大值情形下可得 $x=y=z$。代入约束：
+\[
+  3x^2=3a^2\quad\Rightarrow\quad x=y=z=a.
+\]
+所以体积最大值为
+\[
+  V_{\max}=a^3.
+\]
+\end{solution}
+\begin{note}
+这道题也可用均值不等式证明：
+\[
+  \frac{xy+yz+zx}{3}\ge \sqrt[3]{x^2y^2z^2}.
+\]
+当 $xy=yz=zx$，即 $x=y=z$ 时取等号。
+\end{note}
+\begin{warningbox}{第六章后半总结}
+\begin{itemize}
+  \item 全微分负责线性近似，隐函数求导负责“方程给函数”的求导。
+  \item 方向导数必须先单位化方向向量，梯度方向是增长最快方向。
+  \item 曲面切平面题先找法向量，曲线切线题先找切向量。
+  \item 极值题先区分有无约束；无约束用驻点和 Hessian，条件极值用拉格朗日乘数法。
+\end{itemize}
+\end{warningbox}

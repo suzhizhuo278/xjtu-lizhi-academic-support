@@ -1,0 +1,164 @@
+\documentclass[a4paper,10pt]{ctexart}
+
+\usepackage{amsfonts,amsmath,amscd,amssymb,amsthm}
+\usepackage{latexsym,bm}
+\usepackage{cite}
+\usepackage{mathtools,mathdots,graphicx,array}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{booktabs,longtable,tabularx,multicol}
+\usepackage{ulem}
+\usepackage{diagbox}
+\usepackage{xcolor,tcolorbox,tikz,tkz-tab,mdframed,tikz-cd}
+\usepackage{framed}
+\usepackage{verbatim}
+\usepackage{extarrows}
+\usepackage{fontspec}
+\usepackage{pdfpages}
+\usepackage{mpdoc}
+
+\tcbuselibrary{breakable}
+\usetikzlibrary{arrows.meta,calc,patterns,decorations.pathreplacing,angles,quotes}
+\setlength{\headheight}{13pt}
+
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+\newcommand*{\e}{\mathrm{e}}
+\newcommand*{\rank}{\mathop{}\!\mathrm{rank}}
+\newcommand*{\grad}{\mathop{}\!\mathrm{grad}}
+\newcommand*{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand*{\pdd}[3]{\frac{\partial^2 #1}{\partial #2\,\partial #3}}
+\newcommand*{\dd}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand*{\ddd}[2]{\frac{\dif^2 #1}{\dif #2^2}}
+\newcommand*{\R}{\mathbb{R}}
+
+\linespread{1.45}
+\definecolor{shadecolor}{RGB}{241,241,255}
+
+\tikzset{
+  mpdiagram/.style={
+    line cap=round,
+    line join=round,
+    >=Stealth,
+    font=\small
+  },
+  mpaxis/.style={->, MaterialBlueGrey!85, line width=0.55pt},
+  mpguide/.style={MaterialBlueGrey!55, dashed, line width=0.45pt},
+  mpboundary/.style={MaterialPurple, line width=0.9pt},
+  mpregion/.style={draw=MaterialPurple, fill=MaterialPurple50, fill opacity=0.62, line width=0.8pt},
+  mpsoftregion/.style={draw=MaterialBlueGrey, fill=MaterialBlueGrey50, fill opacity=0.58, line width=0.7pt},
+  mpaccent/.style={-{Stealth[length=2.3mm]}, MaterialRed, line width=0.95pt},
+  mpvector/.style={-{Stealth[length=2.3mm]}, MaterialBlue, line width=0.95pt},
+  mplabel/.style={text=MaterialBlueGrey900, inner sep=1.5pt},
+  mppoint/.style={circle, fill=MaterialRed, inner sep=1.25pt}
+}
+\newcommand{\diagramcaption}[1]{%
+  \par\vspace{2pt}
+  {\centering\small\color{MaterialBlueGrey900}#1\par}
+  \vspace{2pt}
+}
+
+\newcounter{problemname}
+\counterwithin*{problemname}{section}
+\newenvironment{problem}{\begin{shaded}\stepcounter{problemname}\par\noindent\textbf{题目\thesection.\arabic{problemname}. }}{\end{shaded}\par}
+\newenvironment{solution}{\par\noindent\textbf{解答. }}{\par}
+\newenvironment{note}{\par\noindent\textbf{题目\thesection.\arabic{problemname}的注记. }}{\par}
+
+\newtcolorbox{summarybox}[1]{
+  breakable,
+  enhanced,
+  colback=MaterialBlueGrey50,
+  colframe=MaterialBlueGrey,
+  fonttitle=\heiti,
+  title={#1},
+  boxrule=0.4pt,
+  arc=1mm,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt
+}
+
+\newtcolorbox{methodbox}[1]{
+  breakable,
+  enhanced,
+  colback=MaterialPurple50,
+  colframe=MaterialPurple,
+  fonttitle=\heiti,
+  title={#1},
+  boxrule=0.4pt,
+  arc=1mm,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt
+}
+
+\newtcolorbox{warningbox}[1]{
+  breakable,
+  enhanced,
+  colback=MaterialRed50,
+  colframe=MaterialRed,
+  fonttitle=\heiti,
+  title={#1},
+  boxrule=0.4pt,
+  arc=1mm,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt
+}
+
+\setlist[itemize]{leftmargin=2em,itemsep=2pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=2.4em,itemsep=2pt,topsep=3pt}
+
+\newcommand{\chaptertitle}[2]{%
+  \clearpage
+  \setcounter{section}{#1}%
+  \setcounter{subsection}{0}%
+  \setcounter{problemname}{0}%
+  \section*{#2}%
+  \addcontentsline{toc}{section}{#2}%
+}
+
+\begin{document}
+
+\IfFileExists{高代封面.pdf}{\includepdf[pages={1}]{高代封面.pdf}}{
+\begin{titlepage}
+\centering
+\vspace*{0.24\textheight}
+{\Huge\heiti 高等数学IV-2复习资料\par}
+\vfill
+{\large 励志书院\quad 学业促进与发展中心\par}
+\end{titlepage}
+}
+
+\pagenumbering{roman}
+\title{高等数学IV-2复习资料}
+\author{励志书院\quad 学业促进与发展中心}
+\date{\today}
+\maketitle
+
+\tableofcontents
+
+\newpage
+\section*{\huge\textbf{前言}}
+\addcontentsline{toc}{section}{前言}
+
+本资料面向《高等数学IV-2》课程期末复习，由励志书院学业促进与发展中心整理。编写时，我们尽量避免简单堆砌公式，而是围绕“概念怎样理解、题目怎样入手、常见错误怎样避免”来组织内容，希望帮助同学们在有限复习时间内建立较清晰的知识框架。
+
+全书内容包括向量代数与空间解析几何、多元函数微分学及其应用、重积分、级数等部分。每章开头给出学习目标和常见题型，正文中穿插定义、定理、方法提示、典型例题与易错点。使用本资料时，建议先通读每章的学习目标和方法框，再结合例题检查自己是否真正会判断条件、选择方法、写出规范过程。
+
+需要说明的是，本资料定位为期末复习辅助材料，不能替代教材、课堂笔记和任课教师的要求。不同班级的讲授侧重点和考查范围可能存在差异，请同学们以课堂要求为准，并把本资料作为梳理思路、查漏补缺和练习表达的工具。
+
+由于整理时间和编写水平有限，资料中难免仍有疏漏或表述不够完善之处，欢迎同学们在使用过程中提出修改建议。愿这份资料能帮助大家把零散的知识点连成线，把会做的题做稳，把容易混淆的地方想清楚。
+
+\pagenumbering{arabic}
+
+\input{chapters/chapter05}
+\input{chapters/chapter06}
+\input{chapters/chapter07}
+\input{chapters/chapter09}
+
+\end{document}
