@@ -1,0 +1,631 @@
+\chaptertitle{9}{第九章 级数}
+
+\begin{summarybox}{本章学习目标}
+级数研究“无限多个数或函数相加”是否有意义。本章复习范围按课堂要求整理到 9.1--9.6：常数项级数、正项级数与交错级数、绝对收敛与条件收敛、函数项级数、幂级数、函数的幂级数展开。复习时重点放在判别法选择、端点判断、和函数与展开式。
+\end{summarybox}
+
+\begin{methodbox}{第九章第一步怎么选方法}
+\begin{itemize}
+  \item 先看通项是否趋于 $0$。若 $\lim u_n\ne0$ 或不存在，级数必发散。
+  \item 若每项非负，优先按正项级数处理：比较、极限比较、比值、根值、积分判别。
+  \item 若有 $(-1)^n$ 或 $(-1)^{n-1}$，先判断绝对收敛；绝对不收敛时再看交错级数判别。
+  \item 若含 $x^n$ 或 $(x-a)^n$，按幂级数：先求半径，再查端点。
+  \item 若要求“展开”，先找熟悉的基本展开式，再代换、求导或积分。
+\end{itemize}
+\end{methodbox}
+
+\subsection{第一节 常数项级数的概念与基本性质}
+
+\begin{dy}{常数项级数}{def-series}
+给定数列 $\{u_n\}$，形式和
+\[
+  \sum_{n=1}^{\infty}u_n=u_1+u_2+\cdots+u_n+\cdots
+\]
+称为常数项级数。记部分和
+\[
+  S_n=\sum_{k=1}^{n}u_k.
+\]
+若 $\lim_{n\to\infty}S_n=S$ 存在，则称级数收敛，且和为 $S$；若该极限不存在，则称级数发散。
+\end{dy}
+
+\begin{dl}{收敛的必要条件}{thm-term-zero}
+若级数 $\sum u_n$ 收敛，则
+\[
+  \lim_{n\to\infty}u_n=0.
+\]
+因此若 $\lim_{n\to\infty}u_n\ne0$ 或该极限不存在，则级数必发散。
+\end{dl}
+
+\begin{warningbox}{必要条件不是充分条件}
+$u_n\to0$ 只能说明“有可能收敛”，不能推出级数收敛。例如调和级数 $\sum 1/n$ 虽然通项趋于 $0$，但它发散。
+\end{warningbox}
+
+\begin{methodbox}{必须熟悉的基本级数}
+\begin{itemize}
+  \item 几何级数：$\sum_{n=0}^{\infty}aq^n$，当 $|q|<1$ 时收敛，和为 $\dfrac{a}{1-q}$；当 $|q|\ge1$ 时发散。
+  \item $p$ 级数：$\sum_{n=1}^{\infty}\dfrac1{n^p}$，当 $p>1$ 时收敛，当 $p\le1$ 时发散。
+  \item 望远镜级数：若 $u_n=a_n-a_{n+1}$，则部分和中间项大量抵消。
+\end{itemize}
+\end{methodbox}
+
+\begin{problem}
+判断级数
+\[
+  \sum_{n=1}^{\infty}\left(\sqrt{n+1}-\sqrt n\right)
+\]
+的敛散性。
+\end{problem}
+\begin{solution}
+这是望远镜结构。部分和为
+\[
+  S_N=\sum_{n=1}^{N}\left(\sqrt{n+1}-\sqrt n\right)=\sqrt{N+1}-1.
+\]
+当 $N\to\infty$ 时，$S_N\to\infty$，所以原级数发散。
+\end{solution}
+\begin{note}
+这道题的痛点是：通项趋于 $0$，但级数仍然可以发散。不要把必要条件当成充分条件。
+\end{note}
+
+\begin{problem}
+判断并求和：
+\[
+  \sum_{n=1}^{\infty}\frac1{n(n+1)(n+2)}.
+\]
+\end{problem}
+\begin{solution}
+作部分分式分解：
+\[
+  \frac1{n(n+1)(n+2)}
+  =\frac12\left(\frac1{n(n+1)}-\frac1{(n+1)(n+2)}\right).
+\]
+所以
+\[
+  S_N=\frac12\left(\frac1{1\cdot2}-\frac1{(N+1)(N+2)}\right).
+\]
+令 $N\to\infty$，得
+\[
+  \sum_{n=1}^{\infty}\frac1{n(n+1)(n+2)}=\frac14.
+\]
+\end{solution}
+
+\begin{problem}
+判断级数
+\[
+  \sum_{n=1}^{\infty}\frac{2n+1}{3n-1}
+\]
+的敛散性。
+\end{problem}
+\begin{solution}
+先看通项极限：
+\[
+  \lim_{n\to\infty}\frac{2n+1}{3n-1}=\frac23\ne0.
+\]
+由于级数收敛的必要条件不满足，所以原级数发散。
+\end{solution}
+
+\subsection{第二节 正项级数与交错级数的敛散性}
+
+\begin{summarybox}{识别思路}
+若 $u_n\ge0$，称 $\sum u_n$ 为正项级数。正项级数常用比较、极限比较、比值、根值、积分判别。若符号正负交替，则优先考虑 Leibniz 判别法，并进一步判断绝对收敛还是条件收敛。
+\end{summarybox}
+
+\begin{dl}{正项级数常用判别法}{thm-positive-tests}
+设 $u_n\ge0$。
+\begin{itemize}
+  \item 比较判别法：若 $0\le u_n\le v_n$，且 $\sum v_n$ 收敛，则 $\sum u_n$ 收敛；若 $u_n\ge v_n\ge0$，且 $\sum v_n$ 发散，则 $\sum u_n$ 发散。
+  \item 极限比较法：若 $\lim\limits_{n\to\infty}\dfrac{u_n}{v_n}=c$，$0<c<\infty$，则 $\sum u_n$ 与 $\sum v_n$ 同敛散。
+  \item 比值判别法：若 $\rho=\lim\limits_{n\to\infty}\dfrac{u_{n+1}}{u_n}$，则 $\rho<1$ 收敛，$\rho>1$ 发散，$\rho=1$ 失效。
+  \item 根值判别法：若 $\rho=\lim\limits_{n\to\infty}\sqrt[n]{u_n}$，则 $\rho<1$ 收敛，$\rho>1$ 发散，$\rho=1$ 失效。
+  \item 积分判别法：当 $f(x)$ 正、连续、单调递减，且 $u_n=f(n)$ 时，$\sum u_n$ 与 $\int_1^\infty f(x)\dif x$ 同敛散。
+\end{itemize}
+\end{dl}
+
+\begin{dl}{Leibniz 判别法}{thm-leibniz}
+若 $a_n\ge0$，且 $a_{n+1}\le a_n$，$\lim\limits_{n\to\infty}a_n=0$，则交错级数
+\[
+  \sum_{n=1}^{\infty}(-1)^{n-1}a_n
+\]
+收敛。
+\end{dl}
+
+\begin{methodbox}{判别法怎么选}
+\begin{itemize}
+  \item 有有理式 $\dfrac{P(n)}{Q(n)}$：优先与 $\dfrac1{n^p}$ 极限比较。
+  \item 有阶乘 $n!$：优先比值判别法。
+  \item 有 $n$ 次幂或形如 $a_n^n$：优先根值判别法。
+  \item 有 $\ln n$、$n\ln n$：常与积分判别法或比较判别法搭配。
+\end{itemize}
+\end{methodbox}
+
+\begin{problem}
+判断级数
+\[
+  \sum_{n=1}^{\infty}\frac{3n+1}{n^3+2}
+\]
+的敛散性。
+\end{problem}
+\begin{solution}
+这是正项级数。与 $\sum 1/n^2$ 作极限比较：
+\[
+  \lim_{n\to\infty}
+  \frac{\dfrac{3n+1}{n^3+2}}{\dfrac1{n^2}}
+  =\lim_{n\to\infty}\frac{n^2(3n+1)}{n^3+2}=3.
+\]
+因为 $\sum 1/n^2$ 收敛，所以原级数收敛。
+\end{solution}
+
+\begin{problem}
+判断级数
+\[
+  \sum_{n=1}^{\infty}\frac{n!}{3^n}
+\]
+的敛散性。
+\end{problem}
+\begin{solution}
+设 $u_n=\dfrac{n!}{3^n}$。用比值判别法：
+\[
+  \frac{u_{n+1}}{u_n}
+  =\frac{(n+1)!}{3^{n+1}}\cdot\frac{3^n}{n!}
+  =\frac{n+1}{3}\to\infty.
+\]
+比值极限大于 $1$，因此级数发散。
+\end{solution}
+\begin{note}
+阶乘增长非常快。遇到 $n!$ 与指数相除时，比值判别法通常最省力。
+\end{note}
+
+\begin{problem}
+判断级数
+\[
+  \sum_{n=1}^{\infty}\left(\frac{2n+1}{3n-1}\right)^n
+\]
+的敛散性。
+\end{problem}
+\begin{solution}
+这是正项级数，且有 $n$ 次幂，使用根值判别法：
+\[
+  \lim_{n\to\infty}\sqrt[n]{\left(\frac{2n+1}{3n-1}\right)^n}
+  =\lim_{n\to\infty}\frac{2n+1}{3n-1}=\frac23<1.
+\]
+所以原级数收敛。
+\end{solution}
+
+\begin{problem}
+判断级数
+\[
+  \sum_{n=2}^{\infty}\frac1{n\ln n}
+\]
+的敛散性。
+\end{problem}
+\begin{solution}
+考虑函数 $f(x)=\dfrac1{x\ln x}$。当 $x\ge2$ 时，它正、连续且单调递减。由积分判别法，
+\[
+  \int_2^\infty\frac{\dif x}{x\ln x}
+  =\lim_{A\to\infty}\bigl(\ln(\ln A)-\ln(\ln2)\bigr)=+\infty.
+\]
+因此原级数发散。
+\end{solution}
+
+\begin{problem}
+判断交错级数
+\[
+  \sum_{n=1}^{\infty}(-1)^{n-1}\frac{n}{2n+1}
+\]
+的敛散性。
+\end{problem}
+\begin{solution}
+令 $a_n=\dfrac{n}{2n+1}$。则
+\[
+  \lim_{n\to\infty}a_n=\frac12\ne0.
+\]
+于是原级数通项不趋于 $0$，所以级数发散。
+\end{solution}
+\begin{note}
+交错符号不会自动带来收敛。仍然要先检查通项是否趋于 $0$。
+\end{note}
+
+\subsection{第三节 绝对收敛与条件收敛}
+
+\begin{dy}{绝对收敛与条件收敛}{def-absolute-conditional}
+若 $\sum |u_n|$ 收敛，则称 $\sum u_n$ 绝对收敛。若 $\sum u_n$ 收敛而 $\sum |u_n|$ 发散，则称 $\sum u_n$ 条件收敛。
+\end{dy}
+
+\begin{dl}{绝对收敛推出收敛}{thm-absolute}
+若 $\sum |u_n|$ 收敛，则 $\sum u_n$ 收敛。
+\end{dl}
+
+\begin{methodbox}{变号级数的标准流程}
+\begin{enumerate}
+  \item 先判断 $\sum |u_n|$。若它收敛，原级数绝对收敛。
+  \item 若 $\sum |u_n|$ 发散，再判断原级数是否收敛。
+  \item 对交错型常用 Leibniz 判别法；对非标准交错型可考虑拆项或比较。
+  \item 若原级数收敛但绝对值级数发散，结论是条件收敛。
+\end{enumerate}
+\end{methodbox}
+
+\begin{problem}
+判断级数
+\[
+  \sum_{n=1}^{\infty}(-1)^{n-1}\frac1n
+\]
+是绝对收敛、条件收敛还是发散。
+\end{problem}
+\begin{solution}
+先看绝对值级数：
+\[
+  \sum_{n=1}^{\infty}\left|(-1)^{n-1}\frac1n\right|=\sum_{n=1}^{\infty}\frac1n,
+\]
+调和级数发散。再看原级数，$1/n$ 单调递减且趋于 $0$，由 Leibniz 判别法，原级数收敛。因此原级数条件收敛。
+\end{solution}
+
+\begin{problem}
+判断级数
+\[
+  \sum_{n=1}^{\infty}(-1)^n\frac{n}{3^n}
+\]
+的敛散性，并说明收敛类型。
+\end{problem}
+\begin{solution}
+看绝对值级数 $\sum n/3^n$。设 $u_n=n/3^n$，则
+\[
+  \frac{u_{n+1}}{u_n}
+  =\frac{n+1}{3^{n+1}}\cdot\frac{3^n}{n}
+  =\frac{n+1}{3n}\to\frac13<1.
+\]
+故绝对值级数收敛，原级数绝对收敛。
+\end{solution}
+
+\begin{problem}
+判断级数
+\[
+  \sum_{n=2}^{\infty}(-1)^n\frac1{\sqrt n+\ln n}
+\]
+的收敛类型。
+\end{problem}
+\begin{solution}
+令 $a_n=\dfrac1{\sqrt n+\ln n}$。当 $n\ge2$ 时，分母随 $n$ 增大而增大，所以 $a_n$ 单调递减，且 $a_n\to0$。由 Leibniz 判别法，原级数收敛。
+
+再看绝对值级数：
+\[
+  \sum_{n=2}^{\infty}\frac1{\sqrt n+\ln n}.
+\]
+因为 $\dfrac1{\sqrt n+\ln n}\sim\dfrac1{\sqrt n}$，而 $\sum 1/\sqrt n$ 发散，所以绝对值级数发散。故原级数条件收敛。
+\end{solution}
+
+\begin{problem}
+判断级数
+\[
+  \sum_{n=1}^{\infty}(-1)^n\frac{\ln(n+1)-\ln n}{n}
+\]
+的收敛类型。
+\end{problem}
+\begin{solution}
+看绝对值级数：
+\[
+  \sum_{n=1}^{\infty}\frac{\ln(n+1)-\ln n}{n}.
+\]
+由于
+\[
+  \ln(n+1)-\ln n=\ln\left(1+\frac1n\right)\sim\frac1n,
+\]
+所以
+\[
+  \frac{\ln(n+1)-\ln n}{n}\sim\frac1{n^2}.
+\]
+因为 $\sum 1/n^2$ 收敛，所以绝对值级数收敛。故原级数绝对收敛。
+\end{solution}
+
+\subsection{第四节 函数项级数}
+
+\begin{summarybox}{只讲考试需要的核心}
+函数项级数是每一项都含变量 $x$ 的级数。本节只复习收敛点、收敛域与和函数的基本概念，重点服务后面的幂级数。
+\end{summarybox}
+
+\begin{dy}{函数项级数与收敛域}{def-function-series}
+若每一项 $u_n(x)$ 都是关于 $x$ 的函数，则
+\[
+  \sum_{n=1}^{\infty}u_n(x)
+\]
+称为函数项级数。对固定的 $x=x_0$，若数项级数 $\sum u_n(x_0)$ 收敛，则称 $x_0$ 是收敛点；所有收敛点组成的集合称为收敛域。若在收敛域上
+\[
+  S(x)=\sum_{n=1}^{\infty}u_n(x),
+\]
+则称 $S(x)$ 为和函数。
+\end{dy}
+
+\begin{methodbox}{求函数项级数收敛域}
+\begin{enumerate}
+  \item 把 $x$ 看成常数，对 $\sum u_n(x)$ 作数项级数判别。
+  \item 得到关于 $x$ 的不等式范围。
+  \item 若有端点或特殊点，代回原级数单独判断。
+  \item 最后写成区间或集合形式。
+\end{enumerate}
+\end{methodbox}
+
+\begin{problem}
+求函数项级数
+\[
+  \sum_{n=1}^{\infty}\frac{x^n}{n}
+\]
+的收敛域。
+\end{problem}
+\begin{solution}
+当 $|x|<1$ 时，由 $\left|x^n/n\right|\le |x|^n$ 及几何级数收敛可知原级数绝对收敛。当 $|x|>1$ 时，通项 $x^n/n$ 不趋于 $0$，级数发散。
+
+端点 $x=1$ 时，$\sum1/n$ 发散；端点 $x=-1$ 时，$\sum(-1)^n/n$ 收敛。因此收敛域为
+\[
+  [-1,1).
+\]
+\end{solution}
+
+\begin{problem}
+求函数项级数
+\[
+  \sum_{n=1}^{\infty}\frac{(x-2)^n}{n^2}
+\]
+的收敛域。
+\end{problem}
+\begin{solution}
+当 $|x-2|<1$ 时，由比较判别法，级数绝对收敛；当 $|x-2|>1$ 时，通项不趋于 $0$，发散。
+
+端点 $x=3$ 时，$\sum1/n^2$ 收敛；端点 $x=1$ 时，$\sum(-1)^n/n^2$ 绝对收敛。故收敛域为
+\[
+  [1,3].
+\]
+\end{solution}
+\begin{note}
+函数项级数题和幂级数题最大的共同点是：端点必须代回原级数。
+\end{note}
+
+\subsection{第五节 幂级数}
+
+\begin{dy}{幂级数}{def-power-series}
+形如
+\[
+  \sum_{n=0}^{\infty}a_n(x-x_0)^n
+\]
+的函数项级数称为幂级数。幂级数存在收敛半径 $R$，在 $|x-x_0|<R$ 内绝对收敛，在 $|x-x_0|>R$ 外发散，端点需单独判断。
+\end{dy}
+
+\begin{methodbox}{求幂级数收敛域的步骤}
+\begin{enumerate}
+  \item 对一般项取绝对值，用比值或根值判别法求出 $R$。
+  \item 写出开区间 $(x_0-R,x_0+R)$。
+  \item 把两个端点分别代回原级数，单独判断敛散性。
+  \item 最后合并为收敛域。
+\end{enumerate}
+\end{methodbox}
+
+\begin{dl}{幂级数的逐项运算}{thm-power-ops}
+若 $\sum a_n(x-x_0)^n$ 的收敛半径为 $R$，则在 $|x-x_0|<R$ 内可以逐项求导和逐项积分。逐项求导或积分后，收敛半径不变，但端点要重新判断。
+\end{dl}
+
+\begin{problem}
+求幂级数
+\[
+  \sum_{n=1}^{\infty}\frac{n+1}{n}x^n
+\]
+的收敛域。
+\end{problem}
+\begin{solution}
+由根值判别法，
+\[
+  \lim_{n\to\infty}\sqrt[n]{\left|\frac{n+1}{n}x^n\right|}=|x|.
+\]
+所以 $|x|<1$ 时收敛，$|x|>1$ 时发散。
+
+端点 $x=1$ 时，通项 $\frac{n+1}{n}$ 不趋于 $0$，发散。端点 $x=-1$ 时，通项 $\frac{n+1}{n}(-1)^n$ 不趋于 $0$，也发散。因此收敛域为
+\[
+  (-1,1).
+\]
+\end{solution}
+
+\begin{problem}
+求幂级数
+\[
+  \sum_{n=1}^{\infty}\frac{x^n}{n^2+1}
+\]
+的收敛域。
+\end{problem}
+\begin{solution}
+根值判别：
+\[
+  \lim_{n\to\infty}\sqrt[n]{\left|\frac{x^n}{n^2+1}\right|}
+  =|x|\lim_{n\to\infty}\frac1{\sqrt[n]{n^2+1}}=|x|.
+\]
+所以开区间为 $(-1,1)$。
+
+当 $x=1$ 时，$\sum\dfrac1{n^2+1}$ 收敛；当 $x=-1$ 时，$\sum\dfrac{(-1)^n}{n^2+1}$ 绝对收敛。故收敛域为
+\[
+  [-1,1].
+\]
+\end{solution}
+
+\begin{problem}
+求幂级数
+\[
+  \sum_{n=1}^{\infty}\frac{(x-1)^n}{n\cdot 3^n}
+\]
+的收敛域。
+\end{problem}
+\begin{solution}
+对绝对值级数用根值判别：
+\[
+  \lim_{n\to\infty}\sqrt[n]{\left|\frac{(x-1)^n}{n3^n}\right|}
+  =\frac{|x-1|}{3}.
+\]
+因此 $|x-1|<3$，即 $-2<x<4$ 时收敛；$|x-1|>3$ 时发散。
+
+端点 $x=4$ 时，$\sum1/n$ 发散。端点 $x=-2$ 时，$\sum(-1)^n/n$ 收敛。故收敛域为
+\[
+  [-2,4).
+\]
+\end{solution}
+\begin{note}
+中心不是 $0$ 时，先把不等式写成 $|x-x_0|<R$，再化成区间。
+\end{note}
+
+\begin{problem}
+求幂级数
+\[
+  \sum_{n=1}^{\infty}n x^n
+\]
+的和函数。
+\end{problem}
+\begin{solution}
+从几何级数出发：
+\[
+  \sum_{n=0}^{\infty}x^n=\frac1{1-x},\qquad |x|<1.
+\]
+两边求导：
+\[
+  \sum_{n=1}^{\infty}n x^{n-1}=\frac1{(1-x)^2}.
+\]
+再乘以 $x$，得
+\[
+  \sum_{n=1}^{\infty}n x^n=\frac{x}{(1-x)^2},\qquad |x|<1.
+\]
+\end{solution}
+
+\newpage
+\subsection{第六节 函数的幂级数展开}
+
+\begin{summarybox}{常用 Maclaurin 展开式}
+\[
+\begin{array}{c|c|c}
+\text{函数} & \text{展开式} & \text{收敛范围}\\ \hline
+\e^x & \displaystyle \sum_{n=0}^{\infty}\frac{x^n}{n!} & (-\infty,+\infty)\\[6pt]
+\sin x & \displaystyle \sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{(2n+1)!} & (-\infty,+\infty)\\[6pt]
+\cos x & \displaystyle \sum_{n=0}^{\infty}(-1)^n\frac{x^{2n}}{(2n)!} & (-\infty,+\infty)\\[6pt]
+\dfrac1{1-x} & \displaystyle \sum_{n=0}^{\infty}x^n & (-1,1)\\[8pt]
+\ln(1+x) & \displaystyle \sum_{n=1}^{\infty}(-1)^{n-1}\frac{x^n}{n} & (-1,1]\\[6pt]
+\arctan x & \displaystyle \sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{2n+1} & [-1,1]
+\end{array}
+\]
+\end{summarybox}
+
+\begin{methodbox}{展开技巧}
+\begin{itemize}
+  \item 看到 $\dfrac1{a+bx}$，优先化成 $\dfrac1{1-t}$。
+  \item 看到 $\ln(1+x)$、$\arctan x$，常用已知展开式，或先对导数展开再积分。
+  \item 展开中心不是 $0$ 时，令 $t=x-x_0$，把函数改写成关于 $t$ 的幂级数。
+  \item 题目只要求到某阶时，用 Taylor 公式保留对应阶数即可。
+\end{itemize}
+\end{methodbox}
+
+\begin{problem}
+将
+\[
+  \frac1{1+x^2}
+\]
+展开为 $x$ 的幂级数，并写出收敛区间。
+\end{problem}
+\begin{solution}
+由
+\[
+  \frac1{1-t}=\sum_{n=0}^{\infty}t^n,\qquad |t|<1,
+\]
+令 $t=-x^2$，得
+\[
+  \frac1{1+x^2}=\sum_{n=0}^{\infty}(-1)^n x^{2n},\qquad |x|<1.
+\]
+收敛区间为 $(-1,1)$。
+\end{solution}
+
+\begin{problem}
+将 $\arctan x$ 展开为 $x$ 的幂级数。
+\end{problem}
+\begin{solution}
+因为
+\[
+  (\arctan x)'=\frac1{1+x^2}.
+\]
+由上一题，
+\[
+  \frac1{1+x^2}=\sum_{n=0}^{\infty}(-1)^n x^{2n},\qquad |x|<1.
+\]
+逐项积分：
+\[
+  \arctan x=C+\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{2n+1}.
+\]
+代入 $x=0$ 得 $C=0$，所以
+\[
+  \arctan x=\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{2n+1},\qquad |x|<1.
+\]
+若进一步讨论端点，可得收敛区间为 $[-1,1]$。
+\end{solution}
+\begin{note}
+由导数展开再积分时，别忘了确定积分常数。
+\end{note}
+
+\begin{problem}
+将函数
+\[
+  \ln(3-x)
+\]
+在 $x=2$ 处展开为幂级数。
+\end{problem}
+\begin{solution}
+令 $t=x-2$。则
+\[
+  3-x=1-(x-2)=1-t.
+\]
+所以 $\ln(3-x)=\ln(1-t)$。由
+\[
+  \ln(1-t)=-\sum_{n=1}^{\infty}\frac{t^n}{n},\qquad |t|<1,
+\]
+得
+\[
+  \ln(3-x)=-\sum_{n=1}^{\infty}\frac{(x-2)^n}{n},\qquad |x-2|<1.
+\]
+即收敛区间为 $(1,3)$。
+\end{solution}
+
+\begin{problem}
+把 $e^{-x^2}$ 展开成 $x$ 的幂级数，并写出前四个非零项。
+\end{problem}
+\begin{solution}
+由
+\[
+  e^t=\sum_{n=0}^{\infty}\frac{t^n}{n!},
+\]
+令 $t=-x^2$，得
+\[
+  e^{-x^2}=\sum_{n=0}^{\infty}\frac{(-x^2)^n}{n!}
+  =\sum_{n=0}^{\infty}(-1)^n\frac{x^{2n}}{n!}.
+\]
+前四个非零项为
+\[
+  e^{-x^2}=1-x^2+\frac{x^4}{2!}-\frac{x^6}{3!}+\cdots.
+\]
+收敛范围为 $(-\infty,+\infty)$。
+\end{solution}
+
+\begin{problem}
+用幂级数求近似值 $\ln 2$，并说明为什么可用交错级数估计误差。
+\end{problem}
+\begin{solution}
+由
+\[
+  \ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\cdots,
+  \qquad -1<x\le1.
+\]
+取 $x=1$，得
+\[
+  \ln2=1-\frac12+\frac13-\frac14+\cdots.
+\]
+这是交错级数，且 $1/n$ 单调递减趋于 $0$。因此截断误差不超过首个被舍去项。例如取前 $N$ 项，
+\[
+  \left|\ln2-\sum_{n=1}^{N}(-1)^{n-1}\frac1n\right|\le\frac1{N+1}.
+\]
+\end{solution}
+
+\begin{warningbox}{第九章易错点}
+\begin{itemize}
+  \item 级数收敛必须看部分和或判别法；通项趋于 $0$ 只是必要条件。
+  \item 比值、根值判别法在极限等于 $1$ 时失效，不能据此下结论。
+  \item 交错级数收敛不代表绝对收敛，必须另看 $\sum |u_n|$。
+  \item 幂级数端点必须单独判断，而且要代回原级数。
+  \item 展开式的收敛范围要一起记，特别是 $\ln(1+x)$ 的右端点 $x=1$ 可以取。
+\end{itemize}
+\end{warningbox}

@@ -1,0 +1,447 @@
+\chaptertitle{7}{第七章 重积分}
+
+\begin{summarybox}{本章学习目标}
+重积分题的核心不是背公式，而是把区域看清楚、把积分限写对。本章复习二重积分、三重积分和含参变量积分。考试中最常见的是计算题：画区域、换积分次序、选坐标系、利用对称性化简。
+\end{summarybox}
+
+\begin{methodbox}{重积分题的通用入口}
+\begin{enumerate}
+  \item 先判断积分域：平面区域用二重积分，空间区域用三重积分。
+  \item 先画图或至少写清边界，别急着积分。
+  \item 选择坐标系：直角坐标适合边界简单的区域；圆、圆环、扇形优先极坐标；旋转体优先柱面坐标或球面坐标。
+  \item 写积分限时从外层到内层逐步确定，内层变量的上下限可以依赖外层变量。
+  \item 最后再利用奇偶性、轮换对称性或形心公式减少计算量。
+\end{enumerate}
+\end{methodbox}
+
+\subsection{第一节 重积分的概念与性质}
+
+\begin{summarybox}{考点定位}
+这一节通常不单独考定义证明，但会作为计算题和应用题的语言基础。重点掌握重积分的几何意义、性质和对称性。
+\end{summarybox}
+
+\begin{dy}{二重积分与三重积分}{def-multiple-integral}
+设 $f(x,y)$ 是有界闭区域 $D$ 上的有界函数。把 $D$ 分割成若干小区域，取每个小区域面积为 $\Delta\sigma_i$，点为 $(\xi_i,\eta_i)$。若极限存在，则
+\[
+  \iint_D f(x,y)\dif\sigma
+  =\lim_{\lambda\to0}\sum_i f(\xi_i,\eta_i)\Delta\sigma_i.
+\]
+在直角坐标下，$\dif\sigma=\dif x\dif y$。
+
+类似地，空间区域 $\Omega$ 上的三重积分记为
+\[
+  \iiint_\Omega f(x,y,z)\dif v,
+\]
+在直角坐标下，$\dif v=\dif x\dif y\dif z$。
+\end{dy}
+
+\begin{summarybox}{几何意义}
+\begin{itemize}
+  \item 若 $f(x,y)\ge0$，则 $\iint_D f(x,y)\dif\sigma$ 表示以 $D$ 为底、$z=f(x,y)$ 为顶的曲顶柱体体积。
+  \item $\iint_D 1\dif\sigma$ 是平面区域 $D$ 的面积。
+  \item $\iiint_\Omega 1\dif v$ 是空间区域 $\Omega$ 的体积。
+\end{itemize}
+\end{summarybox}
+
+\begin{dl}{常用性质}{thm-multiple-integral-properties}
+设 $D=D_1\cup D_2$，且 $D_1,D_2$ 内部不相交，则
+\[
+  \iint_D f\dif\sigma
+  =\iint_{D_1} f\dif\sigma+\iint_{D_2} f\dif\sigma.
+\]
+若 $m\le f(x,y)\le M$，且 $D$ 的面积为 $\sigma(D)$，则
+\[
+  m\sigma(D)\le \iint_D f\dif\sigma\le M\sigma(D).
+\]
+若 $f$ 在 $D$ 上连续，则存在 $(\xi,\eta)\in D$，使
+\[
+  \iint_D f\dif\sigma=f(\xi,\eta)\sigma(D).
+\]
+\end{dl}
+
+\begin{methodbox}{对称性怎么用}
+\begin{itemize}
+  \item 若 $D$ 关于 $x$ 轴对称，且 $f(x,-y)=-f(x,y)$，则 $\iint_D f\dif\sigma=0$。
+  \item 若 $D$ 关于 $x$ 轴对称，且 $f(x,-y)=f(x,y)$，则
+  \[
+    \iint_D f\dif\sigma=2\iint_{D\cap\{y\ge0\}} f\dif\sigma.
+  \]
+  \item 关于 $y$ 轴、坐标面或原点的对称性同理判断。
+  \item 若 $D$ 关于直线 $y=x$ 对称，则
+  \[
+    \iint_D f(x,y)\dif\sigma=\iint_D f(y,x)\dif\sigma.
+  \]
+\end{itemize}
+\end{methodbox}
+
+\begin{warningbox}{对称性易错点}
+对称性要同时检查“积分域”和“被积函数”。只看到被积函数是奇函数还不够，积分域必须关于对应坐标轴或坐标面对称。
+\end{warningbox}
+
+\subsection{第二节 二重积分的计算}
+
+\begin{summarybox}{考点定位}
+二重积分计算的关键是把区域写成累次积分。常考三类题：直角坐标计算、极坐标计算、交换积分次序。
+\end{summarybox}
+
+\begin{methodbox}{直角坐标下的两类区域}
+若区域是 $X$ 型：
+\[
+  D=\{(x,y)\mid a\le x\le b,\ \varphi_1(x)\le y\le \varphi_2(x)\},
+\]
+则
+\[
+  \iint_D f(x,y)\dif\sigma
+  =\int_a^b\int_{\varphi_1(x)}^{\varphi_2(x)} f(x,y)\dif y\dif x.
+\]
+若区域是 $Y$ 型：
+\[
+  D=\{(x,y)\mid c\le y\le d,\ \psi_1(y)\le x\le \psi_2(y)\},
+\]
+则
+\[
+  \iint_D f(x,y)\dif\sigma
+  =\int_c^d\int_{\psi_1(y)}^{\psi_2(y)} f(x,y)\dif x\dif y.
+\]
+\end{methodbox}
+
+\begin{center}
+\begin{tikzpicture}[mpdiagram,scale=0.82]
+  \begin{scope}[xshift=-3.6cm]
+    \draw[mpaxis] (-0.25,0) -- (3.75,0) node[below,mplabel] {$x$};
+    \draw[mpaxis] (0,-0.25) -- (0,2.85) node[left,mplabel] {$y$};
+    \path[mpregion]
+      (0.55,0.70) .. controls (1.25,0.30) and (2.35,0.58) .. (3.10,0.92)
+      -- (3.10,2.05) .. controls (2.30,2.42) and (1.20,2.18) .. (0.55,1.72)
+      -- cycle;
+    \draw[mpboundary] (0.55,0.70) .. controls (1.25,0.30) and (2.35,0.58) .. (3.10,0.92)
+      node[right,mplabel] {$y=\varphi_1(x)$};
+    \draw[mpboundary] (0.55,1.72) .. controls (1.20,2.18) and (2.30,2.42) .. (3.10,2.05)
+      node[right,mplabel] {$y=\varphi_2(x)$};
+    \draw[mpguide] (0.55,0) -- (0.55,1.78) node[above,mplabel] {$a$};
+    \draw[mpguide] (3.10,0) -- (3.10,2.08) node[above,mplabel] {$b$};
+    \draw[mpaccent] (1.82,0.58) -- (1.82,2.22);
+    \node[mplabel] at (1.85,-0.46) {$X$ 型：先定 $x$，再扫 $y$};
+  \end{scope}
+  \begin{scope}[xshift=3.2cm]
+    \draw[mpaxis] (-0.25,0) -- (3.75,0) node[below,mplabel] {$x$};
+    \draw[mpaxis] (0,-0.25) -- (0,2.85) node[left,mplabel] {$y$};
+    \path[mpregion]
+      (0.70,0.55) .. controls (0.32,1.10) and (0.55,2.10) .. (0.98,2.42)
+      -- (2.72,2.42) .. controls (3.20,1.85) and (3.05,0.95) .. (2.42,0.55)
+      -- cycle;
+    \draw[mpboundary] (0.70,0.55) .. controls (0.32,1.10) and (0.55,2.10) .. (0.98,2.42)
+      node[above,mplabel] {$x=\psi_1(y)$};
+    \draw[mpboundary] (2.42,0.55) .. controls (3.05,0.95) and (3.20,1.85) .. (2.72,2.42)
+      node[above,mplabel] {$x=\psi_2(y)$};
+    \draw[mpguide] (0,0.55) -- (2.45,0.55) node[right,mplabel] {$c$};
+    \draw[mpguide] (0,2.42) -- (2.75,2.42) node[right,mplabel] {$d$};
+    \draw[mpaccent] (0.55,1.45) -- (3.03,1.45);
+    \node[mplabel] at (1.85,-0.46) {$Y$ 型：先定 $y$，再扫 $x$};
+  \end{scope}
+\end{tikzpicture}
+\diagramcaption{累次积分限来自“外层变量定范围，内层变量穿过区域”。}
+\end{center}
+
+\begin{methodbox}{极坐标计算}
+当区域含圆、圆环、扇形，或被积函数含 $x^2+y^2$ 时，优先考虑极坐标：
+\[
+  x=\rho\cos\theta,\qquad y=\rho\sin\theta,\qquad \dif\sigma=\rho\dif\rho\dif\theta.
+\]
+若
+\[
+  D=\{(\rho,\theta)\mid \alpha\le\theta\le\beta,\ r_1(\theta)\le\rho\le r_2(\theta)\},
+\]
+则
+\[
+  \iint_D f(x,y)\dif\sigma
+  =\int_\alpha^\beta\int_{r_1(\theta)}^{r_2(\theta)}
+  f(\rho\cos\theta,\rho\sin\theta)\rho\dif\rho\dif\theta.
+\]
+\end{methodbox}
+
+\begin{center}
+\begin{tikzpicture}[mpdiagram,scale=1.0]
+  \draw[mpaxis] (-0.25,0) -- (3.25,0) node[below,mplabel] {$x$};
+  \draw[mpaxis] (0,-0.25) -- (0,2.95) node[left,mplabel] {$y$};
+  \path[mpregion] (25:0.82) -- (25:2.72) arc[start angle=25,end angle=73,radius=2.72]
+    -- (73:1.18) arc[start angle=73,end angle=25,radius=1.18] -- cycle;
+  \draw[mpboundary] (25:2.72) arc[start angle=25,end angle=73,radius=2.72]
+    node[above right,mplabel] {$\rho=r_2(\theta)$};
+  \draw[mpboundary] (25:0.82) -- (25:2.72);
+  \draw[mpboundary] (73:1.18) -- (73:2.72);
+  \draw[mpguide] (73:1.18) arc[start angle=73,end angle=25,radius=1.18]
+    node[midway,below right,mplabel] {$\rho=r_1(\theta)$};
+  \draw[mpaccent] (0.55,0) arc[start angle=0,end angle=25,radius=0.55]
+    node[midway,right,mplabel] {$\alpha$};
+  \draw[mpaccent] (0.85,0) arc[start angle=0,end angle=73,radius=0.85]
+    node[midway,above right,mplabel] {$\beta$};
+  \draw[mpvector] (0,0) -- (47:2.0) node[midway,above left,mplabel] {$\rho$};
+  \node[below left,mplabel] at (0,0) {$O$};
+\end{tikzpicture}
+\diagramcaption{极坐标区域先看角度范围，再沿射线写 $\rho$ 的进入和离开边界。}
+\end{center}
+
+\begin{problem}
+计算
+\[
+  \iint_D (x^2+y^2)\dif\sigma,
+\]
+其中 $D=\{(x,y)\mid x^2+y^2\le a^2\}$。
+\end{problem}
+\begin{solution}
+区域是圆盘，被积函数只含 $x^2+y^2$，用极坐标：
+\[
+  0\le\theta\le2\pi,\qquad 0\le\rho\le a.
+\]
+因此
+\[
+  \iint_D (x^2+y^2)\dif\sigma
+  =\int_0^{2\pi}\int_0^a \rho^2\cdot\rho\dif\rho\dif\theta
+  =2\pi\cdot\frac{a^4}{4}
+  =\frac{\pi a^4}{2}.
+\]
+\end{solution}
+\begin{note}
+极坐标中最容易漏掉的是面积元素里的 $\rho$。
+\end{note}
+
+\begin{methodbox}{交换积分次序}
+交换积分次序按三步走：
+\begin{enumerate}
+  \item 从原积分限读出区域 $D$。
+  \item 画出边界曲线，确定新外层变量范围。
+  \item 用平行于新内层变量方向的直线穿过区域，写出进入和离开区域的边界。
+\end{enumerate}
+\end{methodbox}
+
+\begin{problem}
+交换积分次序：
+\[
+  \int_0^1\int_x^1 f(x,y)\dif y\dif x.
+\]
+\end{problem}
+\begin{solution}
+原积分对应区域
+\[
+  D=\{(x,y)\mid 0\le x\le1,\ x\le y\le1\}.
+\]
+等价地，先固定 $y$，有
+\[
+  0\le y\le1,\qquad 0\le x\le y.
+\]
+所以
+\[
+  \int_0^1\int_x^1 f(x,y)\dif y\dif x
+  =\int_0^1\int_0^y f(x,y)\dif x\dif y.
+\]
+\end{solution}
+
+\subsection{第三节 三重积分的计算}
+
+\begin{summarybox}{考点定位}
+三重积分比二重积分多一个维度，但思路仍是“看区域、定积分限”。常见方法是投影法、截面法、柱面坐标和球面坐标。
+\end{summarybox}
+
+\begin{methodbox}{投影法：先一后二}
+若空间区域可写为
+\[
+  \Omega=\{(x,y,z)\mid (x,y)\in D_{xy},\ z_1(x,y)\le z\le z_2(x,y)\},
+\]
+则
+\[
+  \iiint_\Omega f(x,y,z)\dif v
+  =\iint_{D_{xy}}\int_{z_1(x,y)}^{z_2(x,y)}
+  f(x,y,z)\dif z\dif\sigma.
+\]
+这类写法适合上下曲面比较清楚的区域。
+\end{methodbox}
+
+\begin{methodbox}{截面法：先二后一}
+若固定 $z$ 后的截面为 $D_z$，且 $p\le z\le q$，则
+\[
+  \iiint_\Omega f(x,y,z)\dif v
+  =\int_p^q\left(\iint_{D_z} f(x,y,z)\dif\sigma\right)\dif z.
+\]
+当被积函数只含 $z$，或截面面积容易写出时，这种方法最省力。
+\end{methodbox}
+
+\begin{methodbox}{柱面坐标与球面坐标}
+柱面坐标：
+\[
+  x=\rho\cos\theta,\quad y=\rho\sin\theta,\quad z=z,\quad
+  \dif v=\rho\dif\rho\dif\theta\dif z.
+\]
+适合圆柱、旋转抛物面、绕 $z$ 轴对称的区域。
+
+球面坐标：
+\[
+  x=r\sin\varphi\cos\theta,\quad
+  y=r\sin\varphi\sin\theta,\quad
+  z=r\cos\varphi,\quad
+  \dif v=r^2\sin\varphi\dif r\dif\varphi\dif\theta.
+\]
+适合球、球壳、圆锥与球组合的区域。
+\end{methodbox}
+
+\begin{center}
+\begin{tikzpicture}[mpdiagram,scale=0.88]
+  \begin{scope}[xshift=-3.2cm]
+    \draw[mpaxis] (0,0) -- (0,3.0) node[above,mplabel] {$z$};
+    \draw[mpaxis] (0,0) -- (2.75,-0.58) node[below,mplabel] {$x$};
+    \draw[mpaxis] (0,0) -- (2.35,0.62) node[right,mplabel] {$y$};
+    \draw[mpboundary] (0,0.12) ellipse (1.32 and 0.33);
+    \draw[mpboundary] (0,2.36) ellipse (1.32 and 0.33);
+    \draw[mpboundary] (-1.32,0.12) -- (-1.32,2.36);
+    \draw[mpboundary] (1.32,0.12) -- (1.32,2.36);
+    \coordinate (Q) at (1.12,0.32);
+    \coordinate (P) at (1.12,2.12);
+    \draw[mpguide] (Q) -- (P);
+    \draw[mpvector] (0,0) -- (Q) node[midway,below,mplabel] {$\rho$};
+    \fill[MaterialRed] (P) circle (1.25pt) node[right,mplabel] {$P(\rho,\theta,z)$};
+    \draw[mpaccent] (0.48,-0.10) arc[start angle=-12,end angle=16,radius=0.55]
+      node[midway,right,mplabel] {$\theta$};
+    \node[mplabel] at (0,-0.82) {柱面坐标};
+  \end{scope}
+  \begin{scope}[xshift=3.1cm]
+    \draw[mpaxis] (0,0) -- (0,3.0) node[above,mplabel] {$z$};
+    \draw[mpaxis] (0,0) -- (2.72,-0.58) node[below,mplabel] {$x$};
+    \draw[mpaxis] (0,0) -- (2.22,0.62) node[right,mplabel] {$y$};
+    \draw[mpboundary] (0,1.34) circle (1.35);
+    \draw[mpguide] (-1.35,1.34) arc[start angle=180,end angle=360,x radius=1.35,y radius=0.32];
+    \coordinate (P) at (1.12,2.03);
+    \coordinate (Q) at (1.12,0.32);
+    \draw[mpvector] (0,0) -- (P) node[midway,left,mplabel] {$r$};
+    \draw[mpguide] (P) -- (Q);
+    \draw[mpguide] (0,0) -- (Q);
+    \draw[mpaccent] (0,0.62) arc[start angle=90,end angle=61,radius=0.62]
+      node[midway,above,mplabel] {$\varphi$};
+    \draw[mpaccent] (0.50,-0.10) arc[start angle=-12,end angle=16,radius=0.57]
+      node[midway,right,mplabel] {$\theta$};
+    \fill[MaterialRed] (P) circle (1.25pt) node[right,mplabel] {$P(r,\varphi,\theta)$};
+    \node[mplabel] at (0,-0.82) {球面坐标};
+  \end{scope}
+\end{tikzpicture}
+\diagramcaption{柱面坐标保留高度 $z$；球面坐标用半径 $r$ 和两个角确定空间点。}
+\end{center}
+
+\begin{problem}
+求半径为 $a$ 的球体
+\[
+  \Omega=\{(x,y,z)\mid x^2+y^2+z^2\le a^2\}
+\]
+的体积。
+\end{problem}
+\begin{solution}
+用球面坐标：
+\[
+  0\le r\le a,\qquad 0\le\varphi\le\pi,\qquad 0\le\theta\le2\pi.
+\]
+因此
+\[
+  V=\iiint_\Omega 1\dif v
+  =\int_0^{2\pi}\int_0^\pi\int_0^a
+  r^2\sin\varphi\dif r\dif\varphi\dif\theta
+  =2\pi\cdot2\cdot\frac{a^3}{3}
+  =\frac{4\pi a^3}{3}.
+\]
+\end{solution}
+
+\begin{summarybox}{形心公式}
+若均匀空间区域 $\Omega$ 的体积为 $V$，形心为 $(\bar x,\bar y,\bar z)$，则
+\[
+  \iiint_\Omega x\dif v=\bar x V,\qquad
+  \iiint_\Omega y\dif v=\bar y V,\qquad
+  \iiint_\Omega z\dif v=\bar z V.
+\]
+对称区域中，形心公式可以直接让一些积分为 $0$。
+\end{summarybox}
+
+\subsection{第四节 含参变量的积分}
+
+\begin{summarybox}{考点定位}
+含参变量积分常考“积分号下求导”和“变上限/变下限求导”。本节最重要的是会判断什么时候可以把极限、导数放进积分号。
+\end{summarybox}
+
+\begin{dl}{固定积分限的含参积分}{thm-param-fixed}
+设 $f(x,y)$ 在矩形 $[a,b]\times[c,d]$ 上连续，并定义
+\[
+  I(x)=\int_c^d f(x,y)\dif y.
+\]
+则 $I(x)$ 在 $[a,b]$ 上连续。若 $f_x(x,y)$ 也连续，则
+\[
+  I'(x)=\int_c^d f_x(x,y)\dif y.
+\]
+若还需要积分，则
+\[
+  \int_a^b I(x)\dif x
+  =\int_a^b\int_c^d f(x,y)\dif y\dif x
+  =\int_c^d\int_a^b f(x,y)\dif x\dif y.
+\]
+\end{dl}
+
+\begin{dl}{Leibniz 公式}{thm-leibniz-integral}
+设 $f(x,y)$ 与 $f_x(x,y)$ 连续，$\alpha(x),\beta(x)$ 可导，并定义
+\[
+  F(x)=\int_{\alpha(x)}^{\beta(x)} f(x,y)\dif y.
+\]
+则
+\[
+  F'(x)=f(x,\beta(x))\beta'(x)-f(x,\alpha(x))\alpha'(x)
+  +\int_{\alpha(x)}^{\beta(x)} f_x(x,y)\dif y.
+\]
+\end{dl}
+
+\begin{problem}
+设
+\[
+  F(x)=\int_0^{x^2} e^{xy}\dif y.
+\]
+求 $F'(x)$。
+\end{problem}
+\begin{solution}
+这里 $\alpha(x)=0,\beta(x)=x^2,f(x,y)=e^{xy}$。由 Leibniz 公式，
+\[
+  F'(x)=e^{x\cdot x^2}\cdot 2x-e^{x\cdot0}\cdot0
+  +\int_0^{x^2} y e^{xy}\dif y.
+\]
+即
+\[
+  F'(x)=2x e^{x^3}+\int_0^{x^2} y e^{xy}\dif y.
+\]
+\end{solution}
+\begin{note}
+变上限带来边界项；被积函数含参数还会带来积分号下求导项。
+\end{note}
+
+\subsection{期末常考题型与解题口诀}
+
+\begin{methodbox}{常考题型}
+\begin{itemize}
+  \item 利用对称性判断积分为 $0$ 或把区域缩小一半。
+  \item 二重积分直角坐标与极坐标互选。
+  \item 根据累次积分限画区域并交换积分次序。
+  \item 三重积分中选择投影法、截面法、柱面坐标或球面坐标。
+  \item 用重积分求面积、体积、质量、形心和转动惯量。
+  \item 含参变量积分求导，尤其是变上下限积分。
+\end{itemize}
+\end{methodbox}
+
+\begin{summarybox}{定积分限口诀}
+画域、投影、穿线、定限。
+\begin{itemize}
+  \item 画域：先把边界曲线或曲面看清楚。
+  \item 投影：确定外层变量的范围。
+  \item 穿线：沿内层变量方向穿过区域。
+  \item 定限：写出进入区域和离开区域的边界。
+\end{itemize}
+\end{summarybox}
+
+\begin{warningbox}{本章易错点}
+\begin{itemize}
+  \item 极坐标和柱面坐标都要多乘 $\rho$；球面坐标要多乘 $r^2\sin\varphi$。
+  \item 交换积分次序时，必须重新画区域，不能只把 $\dif x,\dif y$ 对调。
+  \item 对称性只在积分域也对称时成立。
+  \item 含参积分求导时，固定上下限只需积分号下求导；变上下限还要加边界项。
+\end{itemize}
+\end{warningbox}
